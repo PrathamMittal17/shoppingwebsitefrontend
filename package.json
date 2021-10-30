@@ -2,7 +2,7 @@
   "name": "grocerywebsite",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://prathammittal17.github.io/shoppingwebsite",
+  "homepage": "https://prathammittal17.github.io/shoppingwebsite/",
   
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
