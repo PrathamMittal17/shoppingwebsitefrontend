@@ -66,7 +66,7 @@ useEffect(() => {
     LoginForm=<SignIn/>
   }
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
      
      
     <Switch>
@@ -106,7 +106,7 @@ useEffect(() => {
         
 
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
