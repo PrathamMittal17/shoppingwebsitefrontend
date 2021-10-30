@@ -70,7 +70,7 @@ useEffect(() => {
      
      
     <Switch>
-        <Route exact path=''>
+        <Route exact path='/'>
           <RouteContext.Provider value={[route,changeRoute]}>
             <DisplayContext.Provider value={[display,changeDisplay]}>
               <CartItemsTotal.Provider value={[cartItems,setCartItems]}>
