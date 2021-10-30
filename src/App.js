@@ -66,7 +66,7 @@ useEffect(() => {
     LoginForm=<SignIn/>
   }
   return (
-    <HashRouter>
+    <BrowserRouter>
      
      
     <Switch>
@@ -106,7 +106,7 @@ useEffect(() => {
         
 
       </Switch>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
