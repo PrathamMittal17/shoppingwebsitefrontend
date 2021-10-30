@@ -26,7 +26,6 @@ const CartItem = ({id,productName,price,img,quantity,custId,cartTotalItems}) =>{
 
                                 })
                             })
-                        .then(console.log("delte"))
        },[qty,id])
 
 
@@ -42,9 +41,9 @@ const CartItem = ({id,productName,price,img,quantity,custId,cartTotalItems}) =>{
                     item_id:id
                 })
             })
-        .then(setRemoveItem(true))
-        .then(setTotalPrice(totalPrice=>totalPrice-(Number(price)*qty)))
         
+        .then(setTotalPrice(totalPrice=>totalPrice-(Number(price)*qty)))
+        .then(setRemoveItem(true))
 
         fetch("https://young-refuge-95269.herokuapp.com/carttotalitems",{
                 method:"put",

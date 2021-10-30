@@ -25,6 +25,7 @@ const Cart = ({customerId=0}) =>{
             .then(data=>data.json())
             .then(product=>setCartItemsData(product))
             .then(setRemoveItem(false))
+            .then(console.log("yes"))
             .catch(err => console.log('Request Failed'));
             
 
