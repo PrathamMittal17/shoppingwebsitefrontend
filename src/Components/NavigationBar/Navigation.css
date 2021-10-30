@@ -10,7 +10,16 @@
 }
 
 
+
 .black{
     color: black;
 }
 
+@media (max-width:575px){
+    .black{
+        text-align: center;
+    }
+    .cart{
+        justify-content: center;
+    }
+}

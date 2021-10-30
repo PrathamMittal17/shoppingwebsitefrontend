@@ -1,11 +1,16 @@
 import React from "react";
+import MyOrders from "./MyOrders";
 
 
-const Profile = () =>{
+const Profile = ({Name,Email}) =>{
+    
     return(
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center",marginTop:"50vh"}}>
-            <h3>Name:Name</h3>
-            <h3>Email:Email</h3>
+       
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",padding:"20px"}}>
+            
+            <h3>Name:{Name}</h3>
+            <h3 style={{wordBreak:"break-word"}}>Email:{Email}</h3>
+            <MyOrders/>            
         </div>
 
     );
