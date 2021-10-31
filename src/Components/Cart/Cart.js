@@ -15,7 +15,7 @@ const Cart = ({customerId=0}) =>{
 
     useEffect(() => {
         
-        fetch("https://young-refuge-95269.herokuapp.com/cartitem",{
+        fetch("http://localhost:5001/cartitem",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -25,7 +25,6 @@ const Cart = ({customerId=0}) =>{
             .then(data=>data.json())
             .then(product=>setCartItemsData(product))
             .then(setRemoveItem(false))
-            .then(console.log("yes"))
             .catch(err => console.log('Request Failed'));
             
 
@@ -73,7 +72,7 @@ const Cart = ({customerId=0}) =>{
                 
                     <h3 id="totalPrice">Total:Rs.{totalPrice}</h3>
                     <Button type="submit" onClick={()=>{
-                        fetch("https://young-refuge-95269.herokuapp.com/create-checkout-session",{
+                        fetch("http://localhost:5001/shoppingwebsite#/create-checkout-session",{
                             method:"post",
                             headers: {'Content-Type': 'application/json'},
                             body:JSON.stringify({

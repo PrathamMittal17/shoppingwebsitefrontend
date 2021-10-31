@@ -41,7 +41,8 @@ const CartItem = ({id,productName,price,img,quantity,custId,cartTotalItems}) =>{
                     item_id:id
                 })
             })
-        
+           
+
         .then(setTotalPrice(totalPrice=>totalPrice-(Number(price)*qty)))
         .then(setRemoveItem(true))
 
