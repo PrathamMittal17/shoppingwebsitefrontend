@@ -12,7 +12,7 @@ const Cart = ({customerId=0}) =>{
     const[removeItem,setRemoveItem] = useState(false);
     const[totalPrice,setTotalPrice] = useState(0);
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
-
+    console.count("Cart Just Rerendered");
     useEffect(() => {
         
         fetch("http://localhost:5001/cartitem",{
@@ -25,12 +25,11 @@ const Cart = ({customerId=0}) =>{
             .then(data=>data.json())
             .then(product=>setCartItemsData(product))
             .then(setRemoveItem(false))
-            .catch(err => console.log('Request Failed'));
-            
+            .catch(err => console.log('Request Failed'))
+            .then(console.count("Hello From Cart Component"));
 
         }, [customerId,removeItem]);
 
-    
     
    
     if(cartItemsData.length>0){
@@ -72,7 +71,7 @@ const Cart = ({customerId=0}) =>{
                 
                     <h3 id="totalPrice">Total:Rs.{totalPrice}</h3>
                     <Button type="submit" onClick={()=>{
-                        fetch("http://localhost:5001/shoppingwebsite#/create-checkout-session",{
+                        fetch("http://localhost:5001/create-checkout-session",{
                             method:"post",
                             headers: {'Content-Type': 'application/json'},
                             body:JSON.stringify({

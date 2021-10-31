@@ -7,7 +7,7 @@ const OrderDone=({custId})=>{
         const user = localStorage.getItem("user");
         const userId = JSON.parse(user).id;
         const orderItems = {};
-        fetch("https://young-refuge-95269.herokuapp.com/cartitem",{
+        fetch("http://localhost:5001/cartitem",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -18,7 +18,7 @@ const OrderDone=({custId})=>{
         .then(cartItems=>{
             Object.assign(orderItems,cartItems)
         Object.keys(orderItems).map((i)=>{
-                    return fetch("https://young-refuge-95269.herokuapp.com/creatingOrder",{
+                    return fetch("http://localhost:5001/creatingOrder",{
                         method:"post",
                         headers: {'Content-Type': 'application/json'},
                         body:JSON.stringify({

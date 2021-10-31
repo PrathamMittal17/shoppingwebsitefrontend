@@ -8,7 +8,7 @@ const MyOrders=()=>{
     useEffect(()=>{
         const user = localStorage.getItem("user");
         const userId = JSON.parse(user).id;
-        fetch("https://young-refuge-95269.herokuapp.com/gettingOrder",{
+        fetch("http://localhost:5001/gettingOrder",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({

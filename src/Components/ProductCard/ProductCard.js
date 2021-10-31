@@ -9,7 +9,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal}
 
     useEffect(()=>{
         
-        fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
+        fetch("http://localhost:5001/getitemcartstatus",{
             method:"post",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify({
@@ -36,7 +36,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal}
         changeInCart("Item In Cart");
         changeButtonDisable(true);
         if(userId){
-            fetch("https://young-refuge-95269.herokuapp.com/cart",{
+            fetch("http://localhost:5001/cart",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -46,7 +46,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal}
                 })
             })
 
-            fetch("https://young-refuge-95269.herokuapp.com/carttotalitems",{
+            fetch("http://localhost:5001/carttotalitems",{
                 method:"put",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
