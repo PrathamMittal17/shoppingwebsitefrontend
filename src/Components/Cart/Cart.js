@@ -1,21 +1,20 @@
 import React,{useState,useEffect, createContext,useContext} from "react";
 import CartItem from "./CartItem";
 import { loadStripe } from '@stripe/stripe-js';
-
-import { ListGroup,Button } from "react-bootstrap";
+import { ListGroup,Button,Spinner } from "react-bootstrap";
 import { CartItemsTotal } from "../../App";
 const removeItemContext = createContext();
 const totalPriceContext = createContext();
 const Cart = ({customerId=0}) =>{
 
-    const[cartItemsData,setCartItemsData] = useState([]);
+    const[cartItemsData,setCartItemsData] = useState(null);
     const[removeItem,setRemoveItem] = useState(false);
     const[totalPrice,setTotalPrice] = useState(0);
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
-    console.count("Cart Just Rerendered");
     useEffect(() => {
-        
-        fetch("http://localhost:5001/cartitem",{
+        let componentMounted = true;
+
+        fetch("https://young-refuge-95269.herokuapp.com/cartitem",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -23,55 +22,63 @@ const Cart = ({customerId=0}) =>{
                 })
             })
             .then(data=>data.json())
-            .then(product=>setCartItemsData(product))
+            .then(product=>{
+                if(componentMounted){
+                    setCartItemsData(product)
+                }
+            })
             .then(setRemoveItem(false))
             .catch(err => console.log('Request Failed'))
-            .then(console.count("Hello From Cart Component"));
+            return () => {
+                componentMounted = false;
+               }
 
         }, [customerId,removeItem]);
 
-    
-   
-    if(cartItemsData.length>0){
-        return(
-        <ListGroup style={{padding:"5px"}}>
-        {cartItemsData.map((product,i)=>{
-            if(totalPrice===0){
-                setTotalPrice(totalPrice=>totalPrice+(cartItemsData[i].price*cartItemsData[i].qty))
-            }
 
-                return (
-                    <ListGroup.Item key={i}>
-                           
-                            <removeItemContext.Provider value={[removeItem,setRemoveItem]}>
-                                <totalPriceContext.Provider value={[totalPrice,setTotalPrice]}>
-                                <CartItem
-                                    key={cartItemsData[i].cart_item_id}
-                                    id={cartItemsData[i].cart_item_id}
-                                    productName={cartItemsData[i].product_name}
-                                    price={cartItemsData[i].price}
-                                    img = {cartItemsData[i].img}
-                                    quantity = {cartItemsData[i].qty}
-                                    custId={customerId}
-                                    cartTotalItems={[cartItems,setCartItems]}
-                                />
-                                </totalPriceContext.Provider>
-                            </removeItemContext.Provider>
-                        
-                      
-            </ListGroup.Item>
-            
-            );
+    if(cartItemsData){
+            if(cartItemsData.length>0){
+                return(
+                
+                <ListGroup style={{padding:"5px"}}>
+                {cartItemsData.map((product,i)=>{
+                    if(totalPrice===0){
+                        setTotalPrice(totalPrice=>totalPrice+(cartItemsData[i].price*cartItemsData[i].qty))
+                    }
 
-        
-        })
+                        return (
+                            
+                            <ListGroup.Item key={i}>
+                                
+                                    <removeItemContext.Provider value={[removeItem,setRemoveItem]}>
+                                        <totalPriceContext.Provider value={[totalPrice,setTotalPrice]}>
+                                        <CartItem
+                                            key={cartItemsData[i].cart_item_id}
+                                            id={cartItemsData[i].cart_item_id}
+                                            productName={cartItemsData[i].product_name}
+                                            price={cartItemsData[i].price}
+                                            img = {cartItemsData[i].img}
+                                            quantity = {cartItemsData[i].qty}
+                                            custId={customerId}
+                                            cartTotalItems={[cartItems,setCartItems]}
+                                        />
+                                        </totalPriceContext.Provider>
+                                    </removeItemContext.Provider>
+                                
+                            
+                    </ListGroup.Item>
+                    
+                    );
+
+                
+                })
         }
 
         <div className="text-center">
                 
                     <h3 id="totalPrice">Total:Rs.{totalPrice}</h3>
                     <Button type="submit" onClick={()=>{
-                        fetch("http://localhost:5001/create-checkout-session",{
+                        fetch("https://young-refuge-95269.herokuapp.com/create-checkout-session",{
                             method:"post",
                             headers: {'Content-Type': 'application/json'},
                             body:JSON.stringify({
@@ -94,10 +101,19 @@ const Cart = ({customerId=0}) =>{
     );
 
     }
-    else{
+    else if(cartItemsData.length===0){
         return <h1 style={{textAlign:"center"}}>Cart is empty</h1>;
     }
-    
+}
+else{
+    return (
+        <div style={{textAlign:'center',padding:'100px'}}>
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+        </div>
+    );
+}
 
 
        

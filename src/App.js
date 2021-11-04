@@ -1,7 +1,7 @@
 import './App.css';
 import { createContext, useState, useEffect } from 'react';
 import Navigation from './Components/NavigationBar/Navigation'
-import {BrowserRouter,Route,Switch,HashRouter} from 'react-router-dom';
+import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import ProductCardList from './Components/ProductCard/ProductCardList';
 import Cart from './Components/Cart/Cart';
 import Profile from './Components/Profile/Profile';
@@ -26,7 +26,7 @@ const App=()=> {
       loadUser(JSON.parse(localStorage.getItem("user")))
     }
     
-    fetch("http://localhost:5001/products")
+    fetch("https://young-refuge-95269.herokuapp.com/products")
     .then(response=>response.json())
     .then(data=>setProducts(data))
     .catch(err => console.log('Request Failed', err));
@@ -40,7 +40,7 @@ useEffect(() => {
     changeRoute("loggedin");
     changeDisplay('');
     localStorage.setItem("user",JSON.stringify({id:user.id,email:user.email,name:user.name}));
-    fetch("http://localhost:5001/getCartTotalItems",{
+    fetch("https://young-refuge-95269.herokuapp.com/getCartTotalItems",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({

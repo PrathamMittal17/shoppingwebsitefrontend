@@ -13,11 +13,10 @@ const CartItem = ({id,productName,price,img,quantity,custId,cartTotalItems}) =>{
     const [qty,changeQty] = useState(quantity);
     
    
-
     
     
     useEffect(()=>{
-        fetch("http://localhost:5001/updatecartitemqty",{
+        fetch("https://young-refuge-95269.herokuapp.com/updatecartitemqty",{
                                 method:"put",
                                 headers: {'Content-Type': 'application/json'},
                                 body:JSON.stringify({
@@ -34,7 +33,7 @@ const CartItem = ({id,productName,price,img,quantity,custId,cartTotalItems}) =>{
    
     const deleteCartItem = () =>{
 
-        fetch("http://localhost:5001/removecartitem",{
+        fetch("https://young-refuge-95269.herokuapp.com/removecartitem",{
                 method:"delete",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -46,7 +45,7 @@ const CartItem = ({id,productName,price,img,quantity,custId,cartTotalItems}) =>{
         .then(setTotalPrice(totalPrice=>totalPrice-(Number(price)*qty)))
         .then(setRemoveItem(true))
 
-        fetch("http://localhost:5001/carttotalitems",{
+        fetch("https://young-refuge-95269.herokuapp.com/carttotalitems",{
                 method:"put",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({

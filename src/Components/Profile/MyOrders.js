@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import OrderItem from "./Order";
+import { Spinner } from "react-bootstrap";
 const MyOrders=()=>{
 
-    const [orders,setOrders] = useState([]);
+    const [orders,setOrders] = useState(null);
     useEffect(()=>{
+        let componentMounted = true;
+
         const user = localStorage.getItem("user");
         const userId = JSON.parse(user).id;
-        fetch("http://localhost:5001/gettingOrder",{
+        fetch("https://young-refuge-95269.herokuapp.com/gettingOrder",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -16,11 +19,19 @@ const MyOrders=()=>{
                 })
             })
         .then(Data=>Data.json())
-        .then(data=>setOrders(data))
+        .then(data=>{
+            if(componentMounted){
+            setOrders(data)
+            }
+        })
+
+        return () => {
+            componentMounted = false;
+           }
         },[])
 
         
-
+        if(orders){
     if(orders.length===0){
         
         return (
@@ -57,6 +68,14 @@ const MyOrders=()=>{
     
      );
     }
+}
+else{
+    return (
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+    );
+}
 }
 
 export default MyOrders;

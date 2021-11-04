@@ -1,7 +1,7 @@
 import React from "react";
 
 const OrderItem=({product_name,qty,img,price,date})=>{
-    
+
     return(
         <>
         <h3>Purchased on : {date.slice(0,10)}</h3>
