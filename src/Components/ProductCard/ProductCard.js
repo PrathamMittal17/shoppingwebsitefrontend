@@ -8,7 +8,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal}
     const [buttonDisable,changeButtonDisable] = useState(false);
 
     useEffect(()=>{
-        
+        console.log(userId)
         fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
             method:"post",
             headers: {'Content-Type': 'application/json'},

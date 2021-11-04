@@ -22,7 +22,6 @@ const Cart = ({customerId=0}) =>{
             })
             .then(data=>data.json())
             .then(product=>{
-                console.log(product)
                 if(componentMounted){
                     setCartItemsData(product)
                 }
