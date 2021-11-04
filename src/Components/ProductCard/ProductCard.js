@@ -9,11 +9,12 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal}
 
     useEffect(()=>{
         
-        fetch("http://localhost:5001/getitemcartstatus",{
+        fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
             method:"post",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify({
                 customerId:userId,
+                productId:id
                })
         })
         .then(data=>data.json())
