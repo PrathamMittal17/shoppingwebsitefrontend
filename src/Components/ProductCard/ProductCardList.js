@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import { Spinner } from 'react-bootstrap';
+import { Spinner,Alert } from 'react-bootstrap';
 import { UserDetails } from '../../App';
 import { CartItemsTotal } from '../../App';
 import ProductCard from './ProductCard';
@@ -11,7 +11,7 @@ const ProductCardList = ({products}) => {
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
 
     
-  
+    if(user.id){
     if(products){
     return(
         <div className="ProductCardList">
@@ -40,6 +40,10 @@ const ProductCardList = ({products}) => {
             </Spinner>
             </div>
         );
+    }
+    }
+    else{
+        return <Alert variant="primary" style={{textAlign:'center'}}>Please Sign In/Register First</Alert>
     }
 }
 
