@@ -3,12 +3,11 @@ import CartItem from "./CartItem";
 import { loadStripe } from '@stripe/stripe-js';
 import { ListGroup,Button,Spinner } from "react-bootstrap";
 import { CartItemsTotal } from "../../App";
-const removeItemContext = createContext();
 const totalPriceContext = createContext();
+const cartItemsContext = createContext();
 const Cart = ({customerId=0}) =>{
 
     const[cartItemsData,setCartItemsData] = useState(null);
-    const[removeItem,setRemoveItem] = useState(false);
     const[totalPrice,setTotalPrice] = useState(0);
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
     useEffect(() => {
@@ -23,18 +22,19 @@ const Cart = ({customerId=0}) =>{
             })
             .then(data=>data.json())
             .then(product=>{
+                console.log(product)
                 if(componentMounted){
                     setCartItemsData(product)
                 }
             })
-            .then(setRemoveItem(false))
             .catch(err => console.log('Request Failed'))
             return () => {
                 componentMounted = false;
                }
 
-        }, [customerId,removeItem]);
+        }, [customerId]);
 
+    
 
     if(cartItemsData){
             if(cartItemsData.length>0){
@@ -50,9 +50,10 @@ const Cart = ({customerId=0}) =>{
                             
                             <ListGroup.Item key={i}>
                                 
-                                    <removeItemContext.Provider value={[removeItem,setRemoveItem]}>
                                         <totalPriceContext.Provider value={[totalPrice,setTotalPrice]}>
+                                            <cartItemsContext.Provider value={[cartItemsData,setCartItemsData]}>
                                         <CartItem
+                                            index = {i}
                                             key={cartItemsData[i].cart_item_id}
                                             id={cartItemsData[i].cart_item_id}
                                             productName={cartItemsData[i].product_name}
@@ -62,8 +63,8 @@ const Cart = ({customerId=0}) =>{
                                             custId={customerId}
                                             cartTotalItems={[cartItems,setCartItems]}
                                         />
+                                            </cartItemsContext.Provider>
                                         </totalPriceContext.Provider>
-                                    </removeItemContext.Provider>
                                 
                             
                     </ListGroup.Item>
@@ -124,5 +125,5 @@ else{
 
 
 export default Cart;
-export {removeItemContext};
 export {totalPriceContext};
+export {cartItemsContext};

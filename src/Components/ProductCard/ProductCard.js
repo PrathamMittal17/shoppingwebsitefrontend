@@ -9,11 +9,10 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal}
 
     useEffect(()=>{
         
-        fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
+        fetch("http://localhost:5001/getitemcartstatus",{
             method:"post",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify({
-                productId:id,
                 customerId:userId,
                })
         })
@@ -64,7 +63,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal}
     
     return(
         <Card style={{ width: '18rem', margin:'20px'}}>
-            <Card.Img variant="top" src={image} />
+            <Card.Img style={{width:'100%',height:'30vh',objectFit:'scale-down'}} variant="top" src={image} />
             <Card.Body>
                 <Card.Subtitle>{brandName}</Card.Subtitle>
                 <Card.Title>{productName}</Card.Title>

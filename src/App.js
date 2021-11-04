@@ -18,7 +18,7 @@ const App=()=> {
   const [route,changeRoute] = useState('loggedout');
   const [display,changeDisplay] = useState('');
   const [user,loadUser]  = useState({});
-  const [products,setProducts] = useState([]);
+  const [products,setProducts] = useState(null);
   const [cartItems,setCartItems] = useState(0);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ useEffect(() => {
             })
         .then(data=>data.json())
         .then(total=>setCartItems(total.cart_items))
+        
   }
   
 }, [user])

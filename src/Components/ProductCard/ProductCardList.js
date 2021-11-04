@@ -1,4 +1,5 @@
 import React,{useContext} from 'react'
+import { Spinner } from 'react-bootstrap';
 import { UserDetails } from '../../App';
 import { CartItemsTotal } from '../../App';
 import ProductCard from './ProductCard';
@@ -9,9 +10,9 @@ const ProductCardList = ({products}) => {
     const [user] = useContext(UserDetails);
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
 
-
-  
     
+  
+    if(products){
     return(
         <div className="ProductCardList">
             {
@@ -30,6 +31,16 @@ const ProductCardList = ({products}) => {
             }
         </div>
     );
+        }
+    else{
+        return(
+            <div style={{textAlign:'center',padding:'100px'}}>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+            </div>
+        );
+    }
 }
 
 export default ProductCardList;
