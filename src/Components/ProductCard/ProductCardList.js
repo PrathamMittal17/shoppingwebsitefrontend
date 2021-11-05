@@ -1,18 +1,32 @@
-import React,{useContext} from 'react'
+import React,{useContext, useEffect,useState} from 'react'
 import { Spinner,Alert } from 'react-bootstrap';
-import { UserDetails } from '../../App';
 import { CartItemsTotal } from '../../App';
 import ProductCard from './ProductCard';
 import './ProductCardList.css'
 
 const ProductCardList = ({products}) => {
     
-    const [user] = useContext(UserDetails);
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
+    const [status,setStatus] = useState(null);
+    const user = localStorage.getItem("user");
+    const userId = JSON.parse(user).id;
+    useEffect(()=>{
+        
+        fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
+            method:"post",
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+                customerId:userId
+                
+               })
+        })
+        .then(data=>data.json())
+        .then(data=>setStatus(data))
+        
+    },[userId])
 
-    
-    if(user.id){
-    if(products){
+    if(userId){
+    if(products && status){
     return(
         <div className="ProductCardList">
             {
@@ -24,8 +38,9 @@ const ProductCardList = ({products}) => {
                         brandName={products[i].brand_name}
                         productName={products[i].product_name}
                         price={products[i].price}
-                       userId={user.id}
+                       userId={userId}
                        cartTotal={[cartItems,setCartItems]}
+                       status={status}
                     />
                 })
             }

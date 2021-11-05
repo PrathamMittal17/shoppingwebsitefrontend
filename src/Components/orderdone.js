@@ -2,7 +2,7 @@ import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
 
 
-const OrderDone=({custId})=>{
+const OrderDone=()=>{
     useEffect(() => {
         const user = localStorage.getItem("user");
         const userId = JSON.parse(user).id;
