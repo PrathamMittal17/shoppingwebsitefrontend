@@ -1,26 +1,13 @@
-import React,{useContext, useEffect,useState} from 'react'
+import React,{useContext} from 'react'
 import { Spinner,Alert } from 'react-bootstrap';
 import { CartItemsTotal } from '../../App';
 import ProductCard from './ProductCard';
 import './ProductCardList.css'
 
-const ProductCardList = ({products,userId=0}) => {
+const ProductCardList = ({products,userId=0,status}) => {
     
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
-    const [status,setStatus] = useState(null);
     
-    useEffect(()=>{
-        fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
-            method:"post",
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify({
-                customerId:userId
-                
-               })
-        })
-        .then(data=>data.json())
-        .then(data=>setStatus(data))
-    },[userId])
 
     if(userId){
     

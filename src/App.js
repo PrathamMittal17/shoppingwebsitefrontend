@@ -14,6 +14,7 @@ const UserDetails = createContext();
 const CartItemsTotal = createContext();
 const App=()=> {
 
+  const [status,setStatus] = useState(null);
 
   const [route,changeRoute] = useState('loggedout');
   const [display,changeDisplay] = useState('');
@@ -40,6 +41,16 @@ useEffect(() => {
     changeRoute("loggedin");
     changeDisplay('');
     localStorage.setItem("user",JSON.stringify({id:user.id,email:user.email,name:user.name}));
+    fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
+          method:"post",
+          headers: {'Content-Type': 'application/json'},
+          body:JSON.stringify({
+              customerId:user.id
+              
+             })
+      })
+      .then(data=>data.json())
+      .then(data=>setStatus(data))
     fetch("https://young-refuge-95269.herokuapp.com/getCartTotalItems",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
@@ -51,6 +62,8 @@ useEffect(() => {
             })
         .then(data=>data.json())
         .then(total=>setCartItems(total.cart_items))
+
+        
         
   }
   
@@ -86,7 +99,7 @@ useEffect(() => {
           </RouteContext.Provider>
           <UserDetails.Provider value={[user,loadUser]}>
           <CartItemsTotal.Provider value={[cartItems,setCartItems]}>
-              <ProductCardList products={products} userId = {user.id}/>
+              <ProductCardList products={products} userId = {user.id} status={status}/>
           </CartItemsTotal.Provider>
           </UserDetails.Provider>
         </Route>
