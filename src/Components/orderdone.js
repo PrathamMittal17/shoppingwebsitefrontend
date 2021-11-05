@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 
 const OrderDone=({userId})=>{
     useEffect(() => {
-        // const user = localStorage.getItem("user");
-        // const userId = JSON.parse(user).id;
+        
         const orderItems = {};
         fetch("https://young-refuge-95269.herokuapp.com/cartitem",{
                 method:"post",
