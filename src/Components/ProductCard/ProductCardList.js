@@ -4,14 +4,13 @@ import { CartItemsTotal } from '../../App';
 import ProductCard from './ProductCard';
 import './ProductCardList.css'
 
-const ProductCardList = ({products}) => {
+const ProductCardList = ({products,userId}) => {
     
     const [cartItems,setCartItems]  = useContext(CartItemsTotal);
     const [status,setStatus] = useState(null);
-    const user = localStorage.getItem("user");
-    const userId = JSON.parse(user).id;
+    
     useEffect(()=>{
-        
+       
         fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
             method:"post",
             headers: {'Content-Type': 'application/json'},
@@ -22,7 +21,6 @@ const ProductCardList = ({products}) => {
         })
         .then(data=>data.json())
         .then(data=>setStatus(data))
-        
     },[userId])
 
     if(userId){

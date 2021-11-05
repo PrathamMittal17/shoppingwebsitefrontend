@@ -86,7 +86,7 @@ useEffect(() => {
           </RouteContext.Provider>
           <UserDetails.Provider value={[user,loadUser]}>
           <CartItemsTotal.Provider value={[cartItems,setCartItems]}>
-              <ProductCardList products={products}/>
+              <ProductCardList products={products} userId = {user.id}/>
           </CartItemsTotal.Provider>
           </UserDetails.Provider>
         </Route>
@@ -101,7 +101,7 @@ useEffect(() => {
         </Route>
 
         <Route path='/orderdone'>
-          <OrderDone/>
+          <OrderDone userId = {user.id}/>
         </Route>
 
         
