@@ -10,7 +10,6 @@ const ProductCardList = ({products,userId=0}) => {
     const [status,setStatus] = useState(null);
     
     useEffect(()=>{
-        
         fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
             method:"post",
             headers: {'Content-Type': 'application/json'},
@@ -24,6 +23,8 @@ const ProductCardList = ({products,userId=0}) => {
     },[userId])
 
     if(userId){
+    
+    
     if(products && status){
     return(
         <div className="ProductCardList">
