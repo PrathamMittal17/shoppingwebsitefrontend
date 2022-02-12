@@ -22,7 +22,6 @@ const Navigation= ({cartItems}) => {
             ?
             
             <Nav className="ms-auto" style={{gap:"10px"}}>
-                e
                 <div style={{display:"flex"}} className="cart">
                     <Nav.Link as={Link} to="/cart"><h5 className="black">Cart</h5></Nav.Link>
                     <span style={{fontWeight:"bold",color:"#ec1c24"}}>{cartItems}</span>
