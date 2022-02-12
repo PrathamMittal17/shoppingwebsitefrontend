@@ -24,6 +24,8 @@ const MyOrders=()=>{
             setOrders(data)
             }
         })
+        .catch(err => console.log('Request Failed'));
+
 
         return () => {
             componentMounted = false;

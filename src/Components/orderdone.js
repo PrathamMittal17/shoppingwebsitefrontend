@@ -32,6 +32,8 @@ const OrderDone=({userId})=>{
                 })
             
         })
+        .catch(err => console.log('Request Failed'));
+
         
     
     }, [userId])

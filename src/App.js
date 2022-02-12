@@ -1,5 +1,5 @@
 import './App.css';
-import { createContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from './Components/NavigationBar/Navigation'
 import {HashRouter,Route,Switch} from 'react-router-dom';
 import ProductCardList from './Components/ProductCard/ProductCardList';
@@ -8,38 +8,44 @@ import Profile from './Components/Profile/Profile';
 import Register from './Components/Register/Register';
 import SignIn from './Components/SignIn';
 import OrderDone from './Components/orderdone';
-const RouteContext = createContext();
-const DisplayContext = createContext();
-const UserDetails = createContext();
-const CartItemsTotal = createContext();
+import { useSelector, useDispatch } from 'react-redux'
+import { loadUserAccount } from './slices/loadUserSlice';
+import { changeRoute } from './slices/routeSlice';
+import { changeDisplay } from './slices/displaySlice';
+import { SetTotal } from './slices/cartItemsTotalSlice';
+
 const App=()=> {
 
 
-  const [route,changeRoute] = useState('loggedout');
-  const [display,changeDisplay] = useState('');
-  const [user,loadUser]  = useState({});
+  const display = useSelector((state)=>state.changeDisplay.display)
   const [products,setProducts] = useState(null);
-  const [cartItems,setCartItems] = useState(0);
+
+  const cartItems = useSelector((state)=>state.changeCartTotal.total);
+  const user = useSelector((state) => state.loadUser.user)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem("user") != null){
-      loadUser(JSON.parse(localStorage.getItem("user")))
+      dispatch(loadUserAccount(JSON.parse(localStorage.getItem("user"))))
     }
     
     fetch("https://young-refuge-95269.herokuapp.com/products")
     .then(response=>response.json())
     .then(data=>setProducts(data))
-    .catch(err => console.log('Request Failed', err));
+    .catch(err => console.log('Request Failed'));
+    
     
       
-}, [])
+}, [dispatch])
+
 
 useEffect(() => {
   if(user.id){
 
-    changeRoute("loggedin");
-    changeDisplay('');
+    dispatch(changeRoute("loggedin"));
+    dispatch(changeDisplay(' '));
     localStorage.setItem("user",JSON.stringify({id:user.id,email:user.email,name:user.name}));
+    
     fetch("https://young-refuge-95269.herokuapp.com/getCartTotalItems",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
@@ -50,11 +56,13 @@ useEffect(() => {
                 })
             })
         .then(data=>data.json())
-        .then(total=>setCartItems(total.cart_items))
+        .then(total=>dispatch(SetTotal(total.cart_items)))
+        .catch(err => console.log('Request Failed'));
+
         
   }
   
-}, [user])
+}, [user,dispatch])
 
 
 
@@ -68,43 +76,25 @@ useEffect(() => {
   }
   return (
     <HashRouter>
-     
-     
-    <Switch>
-        <Route exact path='/'>
-          <RouteContext.Provider value={[route,changeRoute]}>
-            <DisplayContext.Provider value={[display,changeDisplay]}>
-              <CartItemsTotal.Provider value={[cartItems,setCartItems]}>
-                <UserDetails.Provider value={[user,loadUser]}>
-                  <Navigation />
-                </UserDetails.Provider>
-            </CartItemsTotal.Provider>
-              <UserDetails.Provider value={[user,loadUser]}>
-              {LoginForm}
-              </UserDetails.Provider>
-          </DisplayContext.Provider>
-          </RouteContext.Provider>
-          <UserDetails.Provider value={[user,loadUser]}>
-          <CartItemsTotal.Provider value={[cartItems,setCartItems]}>
-              <ProductCardList products={products} userId = {user.id}/>
-          </CartItemsTotal.Provider>
-          </UserDetails.Provider>
-        </Route>
-        <Route path='/cart'>
-          <CartItemsTotal.Provider value={[cartItems,setCartItems]}>
-              <Cart customerId={user.id}/>
-          </CartItemsTotal.Provider>
-        </Route>
-
-        <Route path='/profile'>
-          <Profile Name={user.name} Email={user.email}/>
-        </Route>
-
-        <Route path='/orderdone'>
-          <OrderDone userId={user.id}/>
-        </Route>
-
+      <Switch>
         
+          <Route exact path='/'>
+                    <Navigation cartItems={cartItems}/>
+                    {LoginForm}
+                    <ProductCardList products={products} userId = {user.id}/>
+          </Route>
+
+          <Route path='/cart'>
+                <Cart customerId={user.id}/>
+          </Route>
+
+          <Route path='/profile'>
+            <Profile Name={user.name} Email={user.email}/>
+          </Route>
+
+          <Route path='/orderdone'>
+            <OrderDone userId={user.id}/>
+          </Route>
 
       </Switch>
     </HashRouter>
@@ -112,7 +102,3 @@ useEffect(() => {
 }
 
 export default App;
-export {RouteContext};
-export {DisplayContext};
-export {UserDetails};
-export {CartItemsTotal};

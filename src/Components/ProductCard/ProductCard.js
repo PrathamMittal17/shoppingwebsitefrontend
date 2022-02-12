@@ -1,12 +1,14 @@
 import React,{useEffect, useState} from 'react'
 import {Card,Button} from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { IncreaseTotal } from '../../slices/cartItemsTotalSlice';
 
-
-const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal,status}) => {
+const ProductCard = ({id=0,image,brandName,productName,price,userId=0,status}) => {
 
     const [inCart,changeInCart] = useState("Add To Cart");
     const [buttonDisable,changeButtonDisable] = useState(false);
     const [buttonVariant,changeButtonVariant] = useState("primary");
+    const dispatch = useDispatch();
     
     useEffect(()=>{
     if(status){
@@ -49,7 +51,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,cartTotal,
                 })
             })
             .then(data=>data.json())
-            .then(total=>cartTotal[1](total))
+            .then(dispatch(IncreaseTotal()))
             
         }
     }

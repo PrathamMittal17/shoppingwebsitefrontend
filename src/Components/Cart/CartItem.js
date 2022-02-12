@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus,faMinus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import {Button} from 'react-bootstrap';
 import { cartItemsContext,totalPriceContext } from "./Cart";
-const CartItem = ({index,id,productName,price,img,quantity,custId,cartTotalItems}) =>{
+import { useDispatch } from "react-redux";
+import { DecreaseTotal } from "../../slices/cartItemsTotalSlice";
+const CartItem = ({index,id,productName,price,img,quantity,custId}) =>{
     
     
     const [,setTotalPrice] = useContext(totalPriceContext);
     const[cartItemsData,setCartItemsData] = useContext(cartItemsContext);
-
+    const dispatch = useDispatch();
     const [qty,changeQty] = useState(quantity);
     
    
@@ -24,6 +26,8 @@ const CartItem = ({index,id,productName,price,img,quantity,custId,cartTotalItems
 
                                 })
                             })
+                            .catch(err => console.log('Request Failed'));
+
        },[qty,id])
 
 
@@ -59,7 +63,7 @@ const CartItem = ({index,id,productName,price,img,quantity,custId,cartTotalItems
                 })
             })
             .then(data=>data.json())
-            .then(total=>cartTotalItems[1](total))
+            .then(dispatch(DecreaseTotal()))
  
       
     }

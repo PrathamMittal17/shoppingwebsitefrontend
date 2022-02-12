@@ -1,15 +1,13 @@
-import React,{useState,useEffect, createContext,useContext} from "react";
+import React,{useState,useEffect, createContext} from "react";
 import CartItem from "./CartItem";
 import { loadStripe } from '@stripe/stripe-js';
 import { ListGroup,Button,Spinner } from "react-bootstrap";
-import { CartItemsTotal } from "../../App";
 const totalPriceContext = createContext();
 const cartItemsContext = createContext();
 const Cart = ({customerId=0}) =>{
 
     const[cartItemsData,setCartItemsData] = useState(null);
     const[totalPrice,setTotalPrice] = useState(0);
-    const [cartItems,setCartItems]  = useContext(CartItemsTotal);
     useEffect(() => {
         let componentMounted = true;
 
@@ -51,17 +49,16 @@ const Cart = ({customerId=0}) =>{
                                 
                                         <totalPriceContext.Provider value={[totalPrice,setTotalPrice]}>
                                             <cartItemsContext.Provider value={[cartItemsData,setCartItemsData]}>
-                                        <CartItem
-                                            index = {i}
-                                            key={cartItemsData[i].cart_item_id}
-                                            id={cartItemsData[i].cart_item_id}
-                                            productName={cartItemsData[i].product_name}
-                                            price={cartItemsData[i].price}
-                                            img = {cartItemsData[i].img}
-                                            quantity = {cartItemsData[i].qty}
-                                            custId={customerId}
-                                            cartTotalItems={[cartItems,setCartItems]}
-                                        />
+                                                <CartItem
+                                                    index = {i}
+                                                    key={cartItemsData[i].cart_item_id}
+                                                    id={cartItemsData[i].cart_item_id}
+                                                    productName={cartItemsData[i].product_name}
+                                                    price={cartItemsData[i].price}
+                                                    img = {cartItemsData[i].img}
+                                                    quantity = {cartItemsData[i].qty}
+                                                    custId={customerId}
+                                                />
                                             </cartItemsContext.Provider>
                                         </totalPriceContext.Provider>
                                 

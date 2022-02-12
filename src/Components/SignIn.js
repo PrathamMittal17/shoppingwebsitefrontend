@@ -1,18 +1,17 @@
-import React,{useState,useContext} from "react";
+import React,{useState} from "react";
 import { Form,Button } from "react-bootstrap";
 import './Register/Register.css';
-import { DisplayContext } from "../App";
-import { RouteContext } from "../App";
-import { UserDetails } from "../App";
+import { useDispatch } from "react-redux";
+import { loadUserAccount } from "../slices/loadUserSlice";
+import { changeRoute } from "../slices/routeSlice";
+import { changeDisplay } from "../slices/displaySlice";
 const SignIn=()=>{
     /* eslint-disable no-unused-vars */
 
     const[email,setEmail] = useState('');
     const[password,setPassword] = useState('');
-    const [route,changeRoute] = useContext(RouteContext);
-    const [display,changeDisplay] = useContext(DisplayContext);
-    const [user,loadUser] = useContext(UserDetails);
 /* eslint-disable no-unused-vars */
+    const dispatch = useDispatch();
 
 
     const changeEmail = (event) =>{
@@ -35,11 +34,13 @@ const SignIn=()=>{
         .then(data=>data.json())
         .then(user=>{
             if(user.id){
-                changeRoute("loggedin");
-                changeDisplay('');
-                loadUser(user);
+                dispatch(changeRoute("loggedout"));
+                dispatch(changeDisplay(' '));
+                dispatch(loadUserAccount(user));
             }
         })
+        .catch(err => console.log('Request Failed'));
+
     }
     return(
         <Form >

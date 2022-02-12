@@ -1,12 +1,10 @@
-import React,{useContext,useState,useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Spinner,Alert } from 'react-bootstrap';
-import { CartItemsTotal } from '../../App';
 import ProductCard from './ProductCard';
 import './ProductCardList.css'
 
 const ProductCardList = ({products,userId=0}) => {
     
-    const [cartItems,setCartItems]  = useContext(CartItemsTotal);
     const [status,setStatus] = useState(null);
     
     useEffect(()=>{
@@ -21,6 +19,8 @@ const ProductCardList = ({products,userId=0}) => {
         })
         .then(data=>data.json())
         .then(data=>setStatus(data))
+        .catch(err => console.log('Request Failed'));
+
     },[userId])
 
     if(userId){
@@ -39,7 +39,6 @@ const ProductCardList = ({products,userId=0}) => {
                         productName={products[i].product_name}
                         price={products[i].price}
                        userId={userId}
-                       cartTotal={[cartItems,setCartItems]}
                        status={status}
                     />
                 })

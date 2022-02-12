@@ -1,10 +1,10 @@
-import React,{useState,useContext} from "react";
+import React,{useState} from "react";
 import { Form,Button } from "react-bootstrap";
-import { RouteContext } from "../../App";
-import { DisplayContext } from "../../App";
-import { UserDetails } from "../../App";
+import { useDispatch } from "react-redux";
 import './Register.css'
-
+import { loadUserAccount } from "../../slices/loadUserSlice";
+import { changeRoute } from "../../slices/routeSlice";
+import { changeDisplay } from "../../slices/displaySlice";
 
 const Register=()=>{
     /* eslint-disable no-unused-vars */
@@ -13,10 +13,9 @@ const Register=()=>{
     const[fname,setFname] = useState('');
     const[lname,setLname] = useState('');
     const[password,setPassword] = useState('');
-    const [route,changeRoute] = useContext(RouteContext);
-    const [display,changeDisplay] = useContext(DisplayContext);
-    const [user,loadUser] = useContext(UserDetails);
-    /* eslint-disable no-unused-vars */
+
+    const dispatch = useDispatch();
+
 
 
     const submitRegister = ()=>{
@@ -33,12 +32,14 @@ const Register=()=>{
         .then(data=>data.json())
         .then(user=>{
             if(user.id){
-                changeRoute("loggedin");
-                changeDisplay('');
-                loadUser(user);
+                dispatch(changeRoute("loggedin"));
+                dispatch(changeDisplay(' '));
+                dispatch(loadUserAccount(user));
 
             }
         })
+        .catch(err => console.log('Request Failed'));
+
     }
 
     const changeEmail = (event) =>{
