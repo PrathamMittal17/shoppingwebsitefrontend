@@ -30,7 +30,7 @@ const Navigation= ({cartItems}) => {
     const route = useSelector((state)=> state.routeChange.route);
 
     return(
-        <Navbar  style={{backgroundColor:"#131921"}} sticky="top" expand="sm">
+        <Navbar  style={{backgroundColor:"#131921"}} variant="dark" sticky="top" expand="sm">
         <Container>
         <Navbar.Brand as={Link} to="/"><span className="brand-name h4">Thrifty<span className="box-text">Box</span></span></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
