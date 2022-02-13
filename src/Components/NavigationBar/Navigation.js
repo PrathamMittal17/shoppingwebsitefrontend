@@ -30,7 +30,7 @@ const Navigation= ({cartItems}) => {
     const route = useSelector((state)=> state.routeChange.route);
 
     return(
-        <Navbar  style={{backgroundColor:"#131921"}} variant="dark" sticky="top" expand="sm">
+        <Navbar  style={{backgroundColor:"#131921"}} sticky="top" expand="sm">
         <Container>
         <Navbar.Brand as={Link} to="/"><span className="brand-name h4">Thrifty<span className="box-text">Box</span></span></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -44,7 +44,7 @@ const Navigation= ({cartItems}) => {
                     <Nav.Link as={Link} to="/cart" style={{color:'white'}} className="hover-border">
                         <FontAwesomeIcon icon={faShoppingCart} style={{fontSize:'1.75rem'}} />
                     </Nav.Link>
-                    <span style={{fontWeight:"bold",color:"white",marginLeft:"2px"}}>{cartItems}</span>
+                    <span style={{fontWeight:"bold",color:"#F08804",marginLeft:"2px"}}>{cartItems}</span>
                 </div>
                     
 

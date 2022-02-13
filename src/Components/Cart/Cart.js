@@ -1,7 +1,7 @@
 import React,{useState,useEffect, createContext} from "react";
 import CartItem from "./CartItem";
 import { loadStripe } from '@stripe/stripe-js';
-import { ListGroup,Button,Spinner } from "react-bootstrap";
+import { ListGroup,Button,Spinner,Navbar } from "react-bootstrap";
 const totalPriceContext = createContext();
 const cartItemsContext = createContext();
 const Cart = ({customerId=0}) =>{
@@ -36,45 +36,11 @@ const Cart = ({customerId=0}) =>{
     if(cartItemsData){
             if(cartItemsData.length>0){
                 return(
-                <div style={{display:"flex",alignContent:"center"}}>
-                    <ListGroup style={{padding:"5px"}}>
-                    {cartItemsData.map((product,i)=>{
-                        if(totalPrice===0){
-                            setTotalPrice(totalPrice=>totalPrice+(cartItemsData[i].price*cartItemsData[i].qty))
-                        }
-
-                            return (
-                                
-                                <ListGroup.Item key={i}>
-                                    
-                                            <totalPriceContext.Provider value={[totalPrice,setTotalPrice]}>
-                                                <cartItemsContext.Provider value={[cartItemsData,setCartItemsData]}>
-                                                    <CartItem
-                                                        index = {i}
-                                                        key={cartItemsData[i].cart_item_id}
-                                                        id={cartItemsData[i].cart_item_id}
-                                                        productName={cartItemsData[i].product_name}
-                                                        price={cartItemsData[i].price}
-                                                        img = {cartItemsData[i].img}
-                                                        quantity = {cartItemsData[i].qty}
-                                                        custId={customerId}
-                                                    />
-                                                </cartItemsContext.Provider>
-                                            </totalPriceContext.Provider>
-                                    
-                                
-                        </ListGroup.Item>
+                <div>
+                    <Navbar  sticky="top" expand="lg" style={{display:'flex',justifyContent:'center',backgroundColor:"#131921",padding:"10px" }}>
                         
-                        );
-
-                    
-                    })
-            }
-
-            <div className="text-center">
-                    
-                        <h3 id="totalPrice">Total:Rs.{totalPrice}</h3>
-                        <Button type="submit" onClick={()=>{
+                        <h3 id="totalPrice" style={{color:"white"}}>Total: Rs.{totalPrice}</h3>
+                        <Button type="submit" style={{marginLeft:"10px"}} onClick={()=>{
                             fetch("https://young-refuge-95269.herokuapp.com/create-checkout-session",{
                                 method:"post",
                                 headers: {'Content-Type': 'application/json'},
@@ -91,31 +57,46 @@ const Cart = ({customerId=0}) =>{
                             )
                         }}>Checkout</Button>
                 
-            </div>
-
-        </ListGroup>
-        <div className="text-center" style={{padding:"10px"}} >
+                    </Navbar>
+                <ListGroup style={{padding:"5px"}}>
                     
-                        <h3 id="totalPrice">Total:Rs.{totalPrice}</h3>
-                        <Button type="submit" onClick={()=>{
-                            fetch("https://young-refuge-95269.herokuapp.com/create-checkout-session",{
-                                method:"post",
-                                headers: {'Content-Type': 'application/json'},
-                                body:JSON.stringify({
-                                    amount:totalPrice*100
-                                })
-                            })
-                            .then(data=>data.json())
-                            .then(async session=>{
-                                const stripe = await loadStripe('pk_test_51JmIXVSBM1qtXmvlx74yuerGEmGuKSxOQ7Ej0XDdZrpZQFasZ4XObY9hCWjeQEXA5GDH1QBgPShHtdlKKJBBYCE400KZp54zhq');
-                                stripe.redirectToCheckout({sessionId:session.id})
-                                
-                            }
-                            )
-                        }}>Checkout</Button>
-                
-            </div>
 
+                {cartItemsData.map((product,i)=>{
+                    if(totalPrice===0){
+                        setTotalPrice(totalPrice=>totalPrice+(cartItemsData[i].price*cartItemsData[i].qty))
+                    }
+
+                        return (
+                            
+                            <ListGroup.Item key={i}>
+                                
+                                        <totalPriceContext.Provider value={[totalPrice,setTotalPrice]}>
+                                            <cartItemsContext.Provider value={[cartItemsData,setCartItemsData]}>
+                                                <CartItem
+                                                    index = {i}
+                                                    key={cartItemsData[i].cart_item_id}
+                                                    id={cartItemsData[i].cart_item_id}
+                                                    productName={cartItemsData[i].product_name}
+                                                    price={cartItemsData[i].price}
+                                                    img = {cartItemsData[i].img}
+                                                    quantity = {cartItemsData[i].qty}
+                                                    custId={customerId}
+                                                />
+                                            </cartItemsContext.Provider>
+                                        </totalPriceContext.Provider>
+                                
+                            
+                    </ListGroup.Item>
+                    
+                    );
+
+                
+                })
+        }
+
+        
+
+    </ListGroup>
     </div>
     
     );
