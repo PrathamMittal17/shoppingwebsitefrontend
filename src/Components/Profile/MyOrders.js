@@ -50,7 +50,7 @@ const MyOrders=()=>{
         <h3>Your Orders:</h3>
        <ListGroup>
            {orders.map((order,i)=>{
-                return <ListGroupItem key = {orders[i].order_id}>
+                return <ListGroupItem style={{borderRadius:"15px"}}key = {orders[i].order_id}>
                             <OrderItem
                                 key = {orders[i].order_id}
                                 id = {orders[i].order_id}

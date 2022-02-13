@@ -68,7 +68,7 @@ const Cart = ({customerId=0}) =>{
 
                         return (
                             
-                            <ListGroup.Item key={i}>
+                            <ListGroup.Item key={i} style={{borderRadius:"15px"}}>
                                 
                                         <totalPriceContext.Provider value={[totalPrice,setTotalPrice]}>
                                             <cartItemsContext.Provider value={[cartItemsData,setCartItemsData]}>
