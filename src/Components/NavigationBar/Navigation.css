@@ -1,18 +1,23 @@
 
 .brand-name{
-    color:#ec1c24 !important;
+    color:red !important;
     font-weight: bold !important;
 
 }
 
+.hover-border:hover{
+    color:#007BFF !important;
+}
+
+
 .box-text{
-    color:#353132;
+    color:white;
 }
 
 
 
 .black{
-    color: black;
+    color: white;
 }
 
 @media (max-width:575px){

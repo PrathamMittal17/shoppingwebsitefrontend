@@ -5,7 +5,7 @@ import './ProductCardList.css'
 
 const ProductCardList = ({products,userId=0}) => {
     
-    const [status,setStatus] = useState(null);
+    const [status,setStatus] = useState([]);
     
     useEffect(()=>{
         
@@ -31,6 +31,7 @@ const ProductCardList = ({products,userId=0}) => {
         <div className="ProductCardList">
             {
                 products.map((product,i)=>{
+                    
                     return <ProductCard
                         key={products[i].product_id}
                         id={products[i].product_id}
