@@ -44,7 +44,7 @@ const Navigation= ({cartItems}) => {
                     <Nav.Link as={Link} to="/cart" style={{color:'white'}} className="hover-border">
                         <FontAwesomeIcon icon={faShoppingCart} style={{fontSize:'1.75rem'}} />
                     </Nav.Link>
-                    <span style={{fontWeight:"bold",color:"#F08804",marginLeft:"2px"}}>{cartItems}</span>
+                    <span style={{fontWeight:"bold",color:"#F08804",marginLeft:"2.5px"}}>{cartItems}</span>
                 </div>
                     
 

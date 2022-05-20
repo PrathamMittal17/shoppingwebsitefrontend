@@ -13,6 +13,12 @@
   }
 }
 
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white!important;
+  opacity: 1; /* Firefox */
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -36,3 +42,4 @@
     transform: rotate(360deg);
   }
 }
+

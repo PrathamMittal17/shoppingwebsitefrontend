@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import {Form, Container} from 'react-bootstrap';
 import Navigation from './Components/NavigationBar/Navigation'
 import {HashRouter,Route,Switch} from 'react-router-dom';
 import ProductCardList from './Components/ProductCard/ProductCardList';
@@ -14,14 +15,15 @@ import { changeRoute } from './slices/routeSlice';
 import { changeDisplay } from './slices/displaySlice';
 import { SetTotal } from './slices/cartItemsTotalSlice';
 
-const App=()=> {
 
+const App=()=> {
 
   const display = useSelector((state)=>state.changeDisplay.display)
   const [products,setProducts] = useState(null);
-
   const cartItems = useSelector((state)=>state.changeCartTotal.total);
-  const user = useSelector((state) => state.loadUser.user)
+  const user = useSelector((state) => state.loadUser.user);
+  const [search,setSearch] = useState("");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -74,6 +76,14 @@ useEffect(() => {
   else if(display==="signin"){
     LoginForm=<SignIn/>
   }
+
+  
+    const filteredProducts = products?.filter(product=>{
+      const productName = product.brand_name + product.product_name;
+      return productName.toLowerCase().includes(search.toLowerCase());
+    })
+  
+  
   return (
     <HashRouter>
       <Switch>
@@ -81,7 +91,25 @@ useEffect(() => {
           <Route exact path='/'>
                     <Navigation cartItems={cartItems}/>
                     {LoginForm}
-                    <ProductCardList products={products} userId = {user.id}/>
+                    {user.id ?
+                    <div style={{position:'fixed',width:'100%',zIndex:'10'}}>
+                    <Container > 
+                      <Form className="d-flex">
+                        <Form.Control
+                          type="search"
+                          placeholder="Search"
+                          className="me-2"
+                          aria-label="Search"
+                          style={{backgroundColor:'#131921',color:"white"}}
+                          onChange={(e)=>setSearch(e.target.value)}
+                          />
+                      </Form>
+                    </Container>
+                    </div>
+                    :
+                    ""
+                  }
+                    <ProductCardList products={filteredProducts} userId = {user.id}/>
           </Route>
 
           <Route path='/cart'>
