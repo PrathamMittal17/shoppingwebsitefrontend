@@ -17,7 +17,7 @@ const CartItem = ({index,id,productName,price,img,quantity,custId}) =>{
     
     
     useEffect(()=>{
-        fetch("https://young-refuge-95269.herokuapp.com/updatecartitemqty",{
+        fetch("https://shopping-website-backend.adaptable.app/updatecartitemqty",{
                                 method:"put",
                                 headers: {'Content-Type': 'application/json'},
                                 body:JSON.stringify({
@@ -39,7 +39,7 @@ const CartItem = ({index,id,productName,price,img,quantity,custId}) =>{
         cartItemsData.splice(index,1)
         setCartItemsData(cartItemsData)
         setTotalPrice(totalPrice=>totalPrice-(Number(price)*qty))
-        fetch("https://young-refuge-95269.herokuapp.com/removecartitem",{
+        fetch("https://shopping-website-backend.adaptable.app/removecartitem",{
                 method:"delete",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -52,7 +52,7 @@ const CartItem = ({index,id,productName,price,img,quantity,custId}) =>{
        
             
 
-        fetch("https://young-refuge-95269.herokuapp.com/carttotalitems",{
+        fetch("https://shopping-website-backend.adaptable.app/carttotalitems",{
                 method:"put",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({

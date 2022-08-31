@@ -11,7 +11,7 @@ const MyOrders=()=>{
 
         const user = localStorage.getItem("user");
         const userId = JSON.parse(user).id;
-        fetch("https://young-refuge-95269.herokuapp.com/gettingOrder",{
+        fetch("https://shopping-website-backend.adaptable.app/gettingOrder",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({

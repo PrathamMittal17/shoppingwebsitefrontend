@@ -9,7 +9,7 @@ const ProductCardList = ({products,userId=0}) => {
     
     useEffect(()=>{
         
-        fetch("https://young-refuge-95269.herokuapp.com/getitemcartstatus",{
+        fetch("https://shopping-website-backend.adaptable.app/getitemcartstatus",{
             method:"post",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify({

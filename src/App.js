@@ -31,7 +31,7 @@ const App=()=> {
       dispatch(loadUserAccount(JSON.parse(localStorage.getItem("user"))))
     }
     
-    fetch("https://young-refuge-95269.herokuapp.com/products")
+    fetch("https://shopping-website-backend.adaptable.app/products")
     .then(response=>response.json())
     .then(data=>setProducts(data))
     .catch(err => console.log('Request Failed'));
@@ -48,7 +48,7 @@ useEffect(() => {
     dispatch(changeDisplay(' '));
     localStorage.setItem("user",JSON.stringify({id:user.id,email:user.email,name:user.name}));
     
-    fetch("https://young-refuge-95269.herokuapp.com/getCartTotalItems",{
+    fetch("https://shopping-website-backend.adaptable.app/getCartTotalItems",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({

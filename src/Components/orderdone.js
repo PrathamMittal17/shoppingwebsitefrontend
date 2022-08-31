@@ -6,7 +6,7 @@ const OrderDone=({userId})=>{
     useEffect(() => {
         
         const orderItems = {};
-        fetch("https://young-refuge-95269.herokuapp.com/cartitem",{
+        fetch("https://shopping-website-backend.adaptable.app/cartitem",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -17,7 +17,7 @@ const OrderDone=({userId})=>{
         .then(cartItems=>{
             Object.assign(orderItems,cartItems)
         Object.keys(orderItems).map((i)=>{
-                    return fetch("https://young-refuge-95269.herokuapp.com/creatingOrder",{
+                    return fetch("https://shopping-website-backend.adaptable.app/creatingOrder",{
                         method:"post",
                         headers: {'Content-Type': 'application/json'},
                         body:JSON.stringify({

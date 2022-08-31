@@ -11,7 +11,7 @@ const Cart = ({customerId=0}) =>{
     useEffect(() => {
         let componentMounted = true;
 
-        fetch("https://young-refuge-95269.herokuapp.com/cartitem",{
+        fetch("https://shopping-website-backend.adaptable.app/cartitem",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -41,7 +41,7 @@ const Cart = ({customerId=0}) =>{
                         
                         <h3 id="totalPrice" style={{color:"white"}}>Total: Rs.{totalPrice}</h3>
                         <Button type="submit" style={{marginLeft:"10px"}} onClick={()=>{
-                            fetch("https://young-refuge-95269.herokuapp.com/create-checkout-session",{
+                            fetch("https://shopping-website-backend.adaptable.app/create-checkout-session",{
                                 method:"post",
                                 headers: {'Content-Type': 'application/json'},
                                 body:JSON.stringify({

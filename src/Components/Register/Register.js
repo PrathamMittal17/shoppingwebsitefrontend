@@ -19,7 +19,7 @@ const Register=()=>{
 
 
     const submitRegister = ()=>{
-        fetch("https://young-refuge-95269.herokuapp.com/register",{
+        fetch("https://shopping-website-backend.adaptable.app/register",{
             method:"post",
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({

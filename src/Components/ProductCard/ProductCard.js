@@ -30,7 +30,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,status}) =
         changeButtonDisable(true);
         changeButtonVariant("dark");
         if(userId){
-            fetch("https://young-refuge-95269.herokuapp.com/cart",{
+            fetch("https://shopping-website-backend.adaptable.app/cart",{
                 method:"post",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
@@ -40,7 +40,7 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,status}) =
                 })
             })
 
-            fetch("https://young-refuge-95269.herokuapp.com/carttotalitems",{
+            fetch("https://shopping-website-backend.adaptable.app/carttotalitems",{
                 method:"put",
                 headers: {'Content-Type': 'application/json'},
                 body:JSON.stringify({
