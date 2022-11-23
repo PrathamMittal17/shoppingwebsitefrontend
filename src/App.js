@@ -14,6 +14,7 @@ import { loadUserAccount } from './slices/loadUserSlice';
 import { changeRoute } from './slices/routeSlice';
 import { changeDisplay } from './slices/displaySlice';
 import { SetTotal } from './slices/cartItemsTotalSlice';
+import ProductDetails from './Components/ProductCard/ProductDetails';
 
 
 const App=()=> {
@@ -22,7 +23,7 @@ const App=()=> {
   const [products,setProducts] = useState(null);
   const cartItems = useSelector((state)=>state.changeCartTotal.total);
   const user = useSelector((state) => state.loadUser.user);
-  const [search,setSearch] = useState(" ");
+  const [search,setSearch] = useState("");
 
   const dispatch = useDispatch();
 
@@ -79,17 +80,15 @@ useEffect(() => {
 
   
     const filteredProducts = products?.filter(product=>{
-      let productName = product.brand_name +" "+ product.product_name;
-      
-      return productName.toLowerCase().includes(search.toLowerCase());
+      return product.product_name.toLowerCase().includes(search?.toLowerCase());
     })
-  
+    
+    
   
   return (
     <HashRouter>
       <Switch>
-        
-          <Route exact path='/'>
+        <Route exact path='/'>
                     <Navigation cartItems={cartItems}/>
                     {LoginForm}
                     {user.id ?
@@ -103,6 +102,8 @@ useEffect(() => {
                           aria-label="Search"
                           style={{backgroundColor:'#131921',color:"white"}}
                           onChange={(e)=>setSearch(e.target.value)}
+                          value={search}
+                          
                           />
                       </Form>
                     </Container>

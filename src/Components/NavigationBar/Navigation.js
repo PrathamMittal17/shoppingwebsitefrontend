@@ -57,21 +57,17 @@ const Navigation= ({cartItems}) => {
                         
                         <Dropdown.Menu style={{textAlign:'center',margin:"15px -100px"}}>
 
-                            <Dropdown.Item >
-                                <Nav.Link as={Link} to="/profile" style={{color:'black'}}>
+                            <Dropdown.Item as={Link} to="/profile" style={{color:'black',fontSize:'18px',padding:'10px'}} >
                                     My Profile
-                                </Nav.Link>
                             </Dropdown.Item>
 
-                            <Dropdown.Item >
-                                <Nav.Link onClick={()=>{
+                            <Dropdown.Item as={Link}  style={{color:'black',fontSize:'18px',padding:'10px'}} to=""onClick={()=>{
                                     dispatch(loadUserAccount(' '));
                                     dispatch(changeRoute("loggedout"));
                                     localStorage.removeItem("user");
                                     localStorage.removeItem("id");
-                                    }} style={{color:'black'}}>
+                                    }} >
                                     Sign Out
-                                </Nav.Link>
                 
                             </Dropdown.Item>
                         </Dropdown.Menu>

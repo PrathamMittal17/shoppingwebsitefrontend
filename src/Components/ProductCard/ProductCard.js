@@ -3,7 +3,7 @@ import {Card,Button} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { IncreaseTotal } from '../../slices/cartItemsTotalSlice';
 
-const ProductCard = ({id=0,image,brandName,productName,price,userId=0,status}) => {
+const ProductCard = ({id=0,image,productName,price,userId=0,status}) => {
 
     const [inCart,changeInCart] = useState("Add To Cart");
     const [buttonDisable,changeButtonDisable] = useState(false);
@@ -60,7 +60,6 @@ const ProductCard = ({id=0,image,brandName,productName,price,userId=0,status}) =
         <Card style={{ width: '18rem', margin:'20px',borderRadius:"15px"}}>
             <Card.Img style={{width:'100%',height:'30vh',objectFit:'scale-down',padding:'10px'}} variant="top" src={image} />
             <Card.Body>
-                <Card.Subtitle>{brandName}</Card.Subtitle>
                 <Card.Title>{productName}</Card.Title>
                 <Card.Text>
                 Rs.{price}

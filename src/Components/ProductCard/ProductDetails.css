@@ -1,0 +1,59 @@
+.name{
+    font-size: 12px;
+    font-weight: 400;
+    
+}
+.about{
+    font-size: 10px;
+}
+
+
+
+@media(min-width:430px) and (max-width:600px){
+    .name{
+        font-size: 17px;
+        font-weight: 400;
+    }
+    .about{
+        font-size: 15px;
+    }
+}
+
+@media(min-width:600px) and (max-width:821px){
+    .name{
+        font-size: 21px;
+        font-weight: 400;
+    }
+    .about{
+        font-size: 19px;
+    }
+}
+
+@media(min-width:821px){
+    .name{
+        font-size: 25px;
+        font-weight: 400;
+    }
+    .about{
+        font-size: 22px;
+    }
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+
+}
+.price {
+    font-size:30px;
+    font-weight:bold;
+}
+
+@media(max-width:300px){
+    .price{
+        font-size: 20px;
+    }
+}
+
