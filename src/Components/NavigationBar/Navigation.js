@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import { useSelector ,useDispatch} from 'react-redux';
 import { changeRoute } from '../../slices/routeSlice';
 import { loadUserAccount } from '../../slices/loadUserSlice';
-import { changeDisplay } from '../../slices/displaySlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser,faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,12 +45,6 @@ const Navigation= ({cartItems}) => {
                     </Nav.Link>
                     <span style={{fontWeight:"bold",color:"#F08804",marginLeft:"2.5px"}}>{cartItems}</span>
                 </div>
-                    
-
-                    
-
-                        
-
                     <Dropdown >
                         <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components"/>
                         
@@ -73,19 +66,9 @@ const Navigation= ({cartItems}) => {
                         </Dropdown.Menu>
 
                     </Dropdown>
-
-                    
-                    
-
-
-                
-            </Nav>
+                </Nav>
             :
-            <Nav className="ms-auto" style={{gap:"10px"}}>
-                <Nav.Item style={{cursor:"pointer"}} onClick={()=>dispatch(changeDisplay('register'))}><h5 className="black">Register</h5></Nav.Item>
-                <Nav.Item  style={{cursor:"pointer"}} onClick={()=>dispatch(changeDisplay('signin'))}><h5 className="black">Sign In</h5></Nav.Item>
-            </Nav>
-            
+           ''
             }
             
         </Navbar.Collapse>

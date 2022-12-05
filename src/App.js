@@ -2,12 +2,10 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import {Form, Container} from 'react-bootstrap';
 import Navigation from './Components/NavigationBar/Navigation'
-import {HashRouter,Route,Switch} from 'react-router-dom';
+import {BrowserRouter,HashRouter,Route,Switch} from 'react-router-dom';
 import ProductCardList from './Components/ProductCard/ProductCardList';
 import Cart from './Components/Cart/Cart';
 import Profile from './Components/Profile/Profile';
-import Register from './Components/Register/Register';
-import SignIn from './Components/SignIn';
 import OrderDone from './Components/orderdone';
 import { useSelector, useDispatch } from 'react-redux'
 import { loadUserAccount } from './slices/loadUserSlice';
@@ -19,7 +17,6 @@ import ProductDetails from './Components/ProductCard/ProductDetails';
 
 const App=()=> {
 
-  const display = useSelector((state)=>state.changeDisplay.display)
   const [products,setProducts] = useState(null);
   const cartItems = useSelector((state)=>state.changeCartTotal.total);
   const user = useSelector((state) => state.loadUser.user);
@@ -69,15 +66,7 @@ useEffect(() => {
 
 
 
-  let LoginForm = '';
-  
-  if(display==="register"){
-    LoginForm=<Register/>
-  }
-  else if(display==="signin"){
-    LoginForm=<SignIn/>
-  }
-
+ 
   
     const filteredProducts = products?.filter(product=>{
       return product.product_name.toLowerCase().includes(search?.toLowerCase());
@@ -90,7 +79,6 @@ useEffect(() => {
       <Switch>
         <Route exact path='/'>
                     <Navigation cartItems={cartItems}/>
-                    {LoginForm}
                     {user.id ?
                     <div style={{position:'fixed',width:'100%',zIndex:'10'}}>
                     <Container > 
@@ -125,6 +113,15 @@ useEffect(() => {
           <Route path='/orderdone'>
             <OrderDone userId={user.id}/>
           </Route>
+          
+          {user.id?
+          <Route path='/products/:id' exact>
+            <ProductDetails userId={user.id}/>
+          </Route>
+          :
+          ""
+          }
+
 
       </Switch>
     </HashRouter>
