@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Spinner,Alert } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { changeDisplay } from '../../slices/displaySlice';

@@ -6,7 +6,7 @@
 .about{
     font-size: 10px;
 }
-.ProductCardList{
+.RecommendedList{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

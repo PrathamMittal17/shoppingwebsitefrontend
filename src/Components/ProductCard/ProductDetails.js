@@ -10,16 +10,15 @@ const ProductDetails = ({userId}) =>{
     const {id} = useParams();
     const[productDetails,setDetails] = useState(null);
     const[load,setLoad] = useState(false)
-    const [recommendedIds,setRecommendedIds] = useState([]);
-    const [recommendedProduct,setrecommendedProduct] = useState(false)
-    const [inCart,changeInCart] = useState("Add To Cart");
-    const [buttonDisable,changeButtonDisable] = useState(false);
-    const [buttonVariant,changeButtonVariant] = useState("primary");
+    const [recommendedProduct,setrecommendedProduct] = useState([])
+    const [inCart,changeInCart] = useState(true);
+    const[cartInfoStatus,setCartInfoStatus] = useState(false)
     const dispatch = useDispatch();
     
     
     
     useEffect(()=>{
+        
         window.scrollTo(0, 0)
         fetch("https://shopping-website-backend.adaptable.app/getitemcartstatus",{
             method:"post",
@@ -33,10 +32,12 @@ const ProductDetails = ({userId}) =>{
         .then(data=>data.json())
         .then(data=>{
             if(data.cart_status==='T'){
-                changeInCart("Item In Cart");
-                changeButtonDisable(true);
-                changeButtonVariant("dark");
+                changeInCart(true)
             }
+            else{
+                changeInCart(false)
+            }
+            setCartInfoStatus(true)
         })
 
         fetch("https://shopping-website-backend.adaptable.app/getProductDetailsFull",{
@@ -58,23 +59,35 @@ const ProductDetails = ({userId}) =>{
             })
         })
         .then(data=>data.json())
-        .then(data=>setRecommendedIds(Object.values(data)))
+        .then(data=>Object.values(data).forEach((id) => {
+            fetch("https://shopping-website-backend.adaptable.app/getProductDetailsHalf",{
+                method:"post",
+                headers: {'Content-Type': 'application/json'},
+                body:JSON.stringify({
+                    productId:id
+                })
+            })
+            .then(data=>data.json())
+            .then(data=>setrecommendedProduct(current => [...current, data]));
+        }))
+        return () => {
+            setrecommendedProduct([])
+            setDetails("")
+            setLoad(false)
+            setCartInfoStatus(false)
+        }
     },[id,userId])
 
-    
+
+    useEffect(()=>{
+        if(recommendedProduct.length===5 && productDetails && cartInfoStatus){
+            setLoad(true)
+        }
+    },[recommendedProduct.length,productDetails,cartInfoStatus])
 
     
-
-   
-
-  
-
-
-
     const addToCart=()=>{
-        changeInCart("Item In Cart");
-        changeButtonDisable(true);
-        changeButtonVariant("dark");
+        changeInCart(true)
         if(userId){
             fetch("https://shopping-website-backend.adaptable.app/cart",{
                 method:"post",
@@ -103,30 +116,34 @@ const ProductDetails = ({userId}) =>{
     }
     
   
-    if(recommendedIds && productDetails){
+    if(load){
     return(
-        
         <div style={{padding:'20px'}}>
             <div style={{display:'flex',alignItems:'center',flexDirection:'column'}}>
                 <p className='name'>{productDetails.product_name}</p>
-                <Image width="250px" src={productDetails.img}  fluid alt="Product Image"/>
+                <Image width="170px" src={productDetails.img}  fluid alt="Product Image"/>
                 <div className="buttons">
                     <p className="price">Price: Rs.{productDetails.price}</p>
-                    <Button disabled={buttonDisable} variant={buttonVariant} onClick={addToCart}>{inCart}</Button>
+                    {inCart ? 
+                    <Button disabled={true} variant="dark">Item in Cart</Button> :
+                    <Button disabled={false} variant="primary" onClick={addToCart}>Add to Cart</Button>}
                 </div>
-                <Tabs  defaultActiveKey="about" id="uncontrolled-tab-example" className="mb-3">
+                <Tabs defaultActiveKey="about" id="uncontrolled-tab-example" className="mb-3">
                     <Tab eventKey="about" title="About ">
                         <p className='about'>{productDetails.about}</p>
                     </Tab>
                     <Tab eventKey="recommended" title="More Like This">
-                        <div className='ProductCardList'>
+                        <div className='RecommendedList'>
                            {
-                           recommendedIds.map((id,index)=>{
-                                return (
-                                    <>
-                                    </>
-                                
-                                );
+                           recommendedProduct.map((product,)=>{
+                                return <ProductCard 
+                                id={product.product_id}
+                                image = {product.img}
+                                productName = {product.product_name}
+                                price={product.price}
+                                key={product.product_id}
+
+                                />
                         
                             })
                             
