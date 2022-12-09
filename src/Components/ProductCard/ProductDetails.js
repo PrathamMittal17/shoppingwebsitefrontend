@@ -121,7 +121,7 @@ const ProductDetails = ({userId}) =>{
         <div style={{padding:'20px'}}>
             <div style={{display:'flex',alignItems:'center',flexDirection:'column'}}>
                 <p className='name'>{productDetails.product_name}</p>
-                <Image width="170px" src={productDetails.img}  fluid alt="Product Image"/>
+                <Image width="230px" src={productDetails.img}  fluid alt="Product Image"/>
                 <div className="buttons">
                     <p className="price">Price: Rs.{productDetails.price}</p>
                     {inCart ? 
