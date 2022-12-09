@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import {Form, Container} from 'react-bootstrap';
 import Navigation from './Components/NavigationBar/Navigation'
-import {BrowserRouter,Route,Switch} from 'react-router-dom';
+import {HashRouter,Route,Switch} from 'react-router-dom';
 import ProductCardList from './Components/ProductCard/ProductCardList';
 import Cart from './Components/Cart/Cart';
 import Profile from './Components/Profile/Profile';
@@ -75,7 +75,7 @@ useEffect(() => {
     
   
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <Route exact path='/'>
                     <Navigation cartItems={cartItems}/>
@@ -125,7 +125,7 @@ useEffect(() => {
 
 
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
