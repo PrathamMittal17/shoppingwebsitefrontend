@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spinner,Alert } from 'react-bootstrap';
+import { Spinner,Alert, Container } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { changeDisplay } from '../../slices/displaySlice';
 import { useDispatch,useSelector} from 'react-redux';
@@ -25,6 +25,15 @@ const ProductCardList = ({products,userId=0}) => {
     
     
     if(products){
+        if(products.length===0){
+
+            return (
+                <Container style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                    <h1>No Products Found</h1>
+                </Container>
+            )
+        }
+        else{
     return(
         <div className="ProductCardList">
             {
@@ -40,8 +49,12 @@ const ProductCardList = ({products,userId=0}) => {
                 })
             }
         </div>
+        
     );
         }
+        
+    }
+    
     else{
         return(
             <div style={{textAlign:'center',padding:'100px'}}>

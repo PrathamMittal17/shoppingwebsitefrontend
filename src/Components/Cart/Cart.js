@@ -36,7 +36,7 @@ const Cart = ({customerId=0}) =>{
     if(cartItemsData){
             if(cartItemsData.length>0){
                 return(
-                <div style={{backgroundColor:'#131921'}}>
+                <div>
                     <Navbar  sticky="top" expand="lg" style={{display:'flex',justifyContent:'center',backgroundColor:"#131921",padding:"10px" }}>
                         
                         <h3 id="totalPrice" style={{color:"white"}}>Total: Rs.{totalPrice}</h3>
