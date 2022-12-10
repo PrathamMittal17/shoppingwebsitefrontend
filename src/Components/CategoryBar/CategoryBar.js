@@ -37,7 +37,6 @@ const CategoryBar = () => {
                         trigger="click"
                         key={'bottom'}
                         placement={'bottom'}
-                        className="test"
                         overlay={
                             <Popover id={"popover-positioned-bottom"}>
                                 <Popover.Header as="h3">{"All Categories"}</Popover.Header>
