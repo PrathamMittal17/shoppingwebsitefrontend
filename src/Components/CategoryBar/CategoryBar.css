@@ -5,6 +5,10 @@
     font-weight: 400;
 }
 
+.mobile-categories{
+    display: none !important;
+}
+
 .cat-select:hover{
     border: white solid 1px;
     border-radius: 5px;
@@ -33,9 +37,15 @@
 
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
     
     div.cat-list > span:nth-of-type(5){
+        display: none;
+    }
+    .mobile-categories{
+        display:block !important;
+    }
+    .big-cats{
         display: none;
     }
 }
