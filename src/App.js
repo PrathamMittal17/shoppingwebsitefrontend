@@ -84,7 +84,18 @@ useEffect(() => {
       <Switch>
         <Route exact path='/'>
                     <Navigation cartItems={cartItems}/>
-                    <CategoryBar/>
+                    <div style={{backgroundColor:"#232F3E",color:'white'}}>
+                      <Container>
+                          <div className="cat-list" >
+                              <span className="cat-select">Smart Wearables</span>
+                              <span className="cat-select">Audio Devices</span>
+                              <span className="cat-select">Mobile Phones</span>
+                              <span className="cat-select">Televisions</span>
+                              <span className="cat-select">Computer Accessories</span>
+                              <span className="cat-select"><b>Explore All Categories</b></span>
+                          </div>
+                      </Container>
+                    </div>
                     {user.id ?
                     <Navbar sticky="top" style={{zIndex:'10'}}>
                     <Container> 
@@ -137,21 +148,3 @@ useEffect(() => {
 
 export default App;
 
-
-const CategoryBar = () => {
-    
-  return(
-      <div style={{backgroundColor:"#232F3E",color:'white'}}>
-          <Container>
-              <div className="cat-list" >
-                  <span className="cat-select">Smart Wearables</span>
-                  <span className="cat-select">Audio Devices</span>
-                  <span className="cat-select">Mobile Phones</span>
-                  <span className="cat-select">Televisions</span>
-                  <span className="cat-select">Computer Accessories</span>
-                  <span className="cat-select"><b>Explore All Categories</b></span>
-              </div>
-          </Container>
-      </div>
-  );
-}
