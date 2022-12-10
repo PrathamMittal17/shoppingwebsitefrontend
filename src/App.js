@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import {Form, Container} from 'react-bootstrap';
+import {Form, Container,Navbar} from 'react-bootstrap';
 import Navigation from './Components/NavigationBar/Navigation'
 import {HashRouter,Route,Switch} from 'react-router-dom';
 import ProductCardList from './Components/ProductCard/ProductCardList';
@@ -13,6 +13,7 @@ import { changeRoute } from './slices/routeSlice';
 import { changeDisplay } from './slices/displaySlice';
 import { SetTotal } from './slices/cartItemsTotalSlice';
 import ProductDetails from './Components/ProductCard/ProductDetails';
+import './Components/CategoryBar.css'
 
 
 const App=()=> {
@@ -71,6 +72,10 @@ useEffect(() => {
     const filteredProducts = products?.filter(product=>{
       return product.product_name.toLowerCase().includes(search?.toLowerCase());
     })
+
+    const categoryFilteredProducts = products?.filter(product=>{
+      return product.product_name.toLowerCase().includes(search?.toLowerCase());
+    })
     
     
   
@@ -79,10 +84,11 @@ useEffect(() => {
       <Switch>
         <Route exact path='/'>
                     <Navigation cartItems={cartItems}/>
+                    <CategoryBar/>
                     {user.id ?
-                    <div style={{position:'fixed',width:'100%',zIndex:'10'}}>
-                    <Container > 
-                      <Form className="d-flex">
+                    <Navbar sticky="top" style={{zIndex:'10'}}>
+                    <Container> 
+                      <Form className="d-flex" style={{width:'100%'}}>
                         <Form.Control
                           type="search"
                           placeholder="Search"
@@ -95,7 +101,7 @@ useEffect(() => {
                           />
                       </Form>
                     </Container>
-                    </div>
+                    </Navbar>
                     :
                     ""
                   }
@@ -130,3 +136,22 @@ useEffect(() => {
 }
 
 export default App;
+
+
+const CategoryBar = () => {
+    
+  return(
+      <div style={{backgroundColor:"#232F3E",color:'white'}}>
+          <Container>
+              <div className="cat-list" >
+                  <span className="cat-select">Smart Wearables</span>
+                  <span className="cat-select">Audio Devices</span>
+                  <span className="cat-select">Mobile Phones</span>
+                  <span className="cat-select">Televisions</span>
+                  <span className="cat-select">Computer Accessories</span>
+                  <span className="cat-select"><b>Explore All Categories</b></span>
+              </div>
+          </Container>
+      </div>
+  );
+}
