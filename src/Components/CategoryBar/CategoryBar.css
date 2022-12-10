@@ -61,7 +61,7 @@
     }
 }
 
-@media (max-width: 495px) {
+@media (max-width: 527px) {
     
     div.cat-list > span:nth-of-type(2),div.cat-list > span:nth-of-type(1)  {
         display: none;
@@ -69,6 +69,18 @@
 
     div.cat-list{
         align-items: center;
+        justify-content: flex-start;
+    }
+
+}
+
+@media (max-width: 410px) {
+    
+    
+
+    div.cat-list{
+        align-items: center;
         justify-content: center;
     }
+
 }
