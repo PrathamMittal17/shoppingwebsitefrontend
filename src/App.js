@@ -15,6 +15,8 @@ import { SetTotal } from './slices/cartItemsTotalSlice';
 import ProductDetails from './Components/ProductCard/ProductDetails';
 import CategoryBar from './Components/CategoryBar/CategoryBar';
 import CategoryPage from './Components/CategoryPage';
+import MyOrders from './Components/Profile/MyOrders';
+import Addresses from './Components/Profile/Addresses';
 const productContext = createContext();
 const catContext = createContext();
 
@@ -116,12 +118,27 @@ useEffect(() => {
           </Route>
 
           <Route path='/profile'>
-            <Profile Name={user.name} Email={user.email}/>
+            <Navigation cartItems={cartItems}/>
+            <Profile Name={user.name}/>
           </Route>
 
           <Route path='/orderdone'>
             <OrderDone userId={user.id}/>
           </Route>
+
+          <Route path='/myorders'>
+            <Navigation cartItems={cartItems}/>
+            <MyOrders/> 
+          </Route>
+
+          <Route path='/myaddresses'>
+            <Navigation cartItems={cartItems}/>
+            <Addresses/> 
+          </Route>
+
+         
+
+
           
           {user.id?
           <Route path='/products/:id' exact>
@@ -129,7 +146,7 @@ useEffect(() => {
             <ProductDetails userId={user.id}/>
           </Route>
           :
-          ""
+          <h1 style={{textAlign:'center'}}>Sign In/Register</h1>
           }
 
 

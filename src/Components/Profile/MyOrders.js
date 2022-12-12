@@ -37,20 +37,20 @@ const MyOrders=()=>{
     if(orders.length===0){
         
         return (
-            <>
-            <h3>You Have No Orders!</h3>
+            <div style={{marginTop:"20px"}}>
+            <h3 style={{textAlign:'center'}}>You Have No Orders!</h3>
             <Link to="/"><h2 style={{textAlign:"center"}}>Continue Shopping</h2></Link>
-            </>
+            </div>
         );
     }
     else{
         
     return (
-        <>
-        <h3>Your Orders:</h3>
+        <div style={{marginTop:"20px"}}>
+        <h3 style={{textAlign:'center'}} >Your Orders:</h3>
        <ListGroup>
            {orders.map((order,i)=>{
-                return <ListGroupItem style={{borderRadius:"15px"}}key = {orders[i].order_id}>
+                return <ListGroupItem style={{borderRadius:"15px",boxShadow:'1px 2px 0 0 #CBC6C6'}}key = {orders[i].order_id}>
                             <OrderItem
                                 key = {orders[i].order_id}
                                 id = {orders[i].order_id}
@@ -65,7 +65,7 @@ const MyOrders=()=>{
     }
 
     </ListGroup>
-    </>
+    </div>
     
     
      );
@@ -73,9 +73,11 @@ const MyOrders=()=>{
 }
 else{
     return (
-        <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <div style={{marginTop:'20px',textAlign:'center'}}> 
+            <Spinner animation="border" role="status" >
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </div>
     );
 }
 }

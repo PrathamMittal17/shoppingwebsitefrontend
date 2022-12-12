@@ -25,6 +25,7 @@ const CategoryBar = () => {
                     <span className="cat-select" onClick={()=>handleOnClick("mobilephones")}>Mobile Phones</span>
                     <span className="cat-select" onClick={()=>handleOnClick("stationery")}>Stationery</span>
                     <OverlayTrigger
+                        rootClose
                         trigger="click"
                         key={'bottom'}
                         placement={'bottom'}
@@ -45,6 +46,7 @@ const CategoryBar = () => {
                     </OverlayTrigger>
 
                     <OverlayTrigger
+                        rootClose
                         trigger="click"
                         key={'right'}
                         placement={'right'}
