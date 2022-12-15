@@ -152,6 +152,7 @@ useEffect(() => {
           }
 
           <Route path="*">
+              <Navigation cartItems={cartItems}/>
                <Four0Four/>
           </Route>
 
