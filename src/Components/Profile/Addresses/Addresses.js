@@ -61,7 +61,9 @@ const Addresses = ({userId=0,checkout=false}) => {
                         <div key={index}> 
                             
                             <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'20px',marginBottom:'20px'}} key={index+1}>
-                                <Form.Check  type="radio" name="selectAddress" key={index+2} onChange={()=>dispatch(changeSelect(true))}/>
+                                <div style={{border:"2px solid black",padding:'5px'}}>
+                                    <Form.Check type="radio" name="selectAddress" key={index+2} onChange={()=>dispatch(changeSelect(true))}/>
+                                </div>
                                 <addressContext.Provider value={[address,setAddress]} key={index+3}>
                                         <AddressCard index={index} ad={ad.address} id={ad.address_id} key={index+4} />
                                 </addressContext.Provider>

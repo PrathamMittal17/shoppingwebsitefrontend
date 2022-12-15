@@ -3,10 +3,11 @@ import { Button, Navbar } from "react-bootstrap";
 import Addresses from "../Profile/Addresses/Addresses";
 import { loadStripe } from '@stripe/stripe-js';
 import { useSelector } from "react-redux";
-
 const SelectAddress = ({userId=0,totalPrice=0}) => {
     const select = useSelector((state)=>state.changeSelect.select)
     const[selectText,setSelectText] = useState(false);
+
+    
     return(
         <div>
             <Navbar  sticky="top" expand="lg" style={{display:'flex',justifyContent:'center',backgroundColor:"#131921",padding:"10px",marginBottom:'30px' }}>
