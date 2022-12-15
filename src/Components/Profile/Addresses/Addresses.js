@@ -60,7 +60,7 @@ const Addresses = ({userId=0,checkout=false}) => {
                          return(
                         <div key={index}> 
                             
-                            <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'20px',marginBottom:'20px'}} key={index+1}>
+                            <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'20px',marginBottom:'20px',padding:'10px'}} key={index+1}>
                                 <div style={{border:"2px solid black",padding:'5px'}}>
                                     <Form.Check type="radio" name="selectAddress" key={index+2} onChange={()=>dispatch(changeSelect(true))}/>
                                 </div>

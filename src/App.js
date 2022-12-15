@@ -133,8 +133,11 @@ useEffect(() => {
           </Route>
 
           <Route path='/myaddresses'>
+            
             <Navigation cartItems={cartItems} />
-            <Addresses userId={user.id}/> 
+            <div style={{padding:'20px'}}>
+            <Addresses userId={user.id}/>
+            </div> 
           </Route>
 
           

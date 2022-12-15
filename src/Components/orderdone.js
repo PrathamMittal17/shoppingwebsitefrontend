@@ -39,7 +39,7 @@ const OrderDone=({userId=0})=>{
     }, [userId])
     return(
         <>
-            <h1 style={{textAlign:"center"}}>Your Order Is successful</h1>
+            <h1 style={{textAlign:"center",padding:'20px'}}>Your Order Is successful</h1>
             <Link to="/"><h2 style={{textAlign:"center"}}>Continue Shopping</h2></Link>
         </>
     );

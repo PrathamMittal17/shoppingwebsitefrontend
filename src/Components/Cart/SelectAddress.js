@@ -38,7 +38,7 @@ const SelectAddress = ({userId=0,totalPrice=0}) => {
                     </Navbar>
             <h4 style={{textAlign:'center'}}>Select an Address</h4>
             {select ? "" : selectText?<h4 style={{textAlign:'center'}}>Please select one Address</h4>:"" }
-                <Addresses userId={userId} checkout={true} />
+                <Addresses userId={userId} checkout={true} select={select}/>
             
             
         </div>
