@@ -16,7 +16,8 @@ import ProductDetails from './Components/ProductCard/ProductDetails';
 import CategoryBar from './Components/CategoryBar/CategoryBar';
 import CategoryPage from './Components/CategoryPage';
 import MyOrders from './Components/Profile/MyOrders';
-import Addresses from './Components/Profile/Addresses';
+import Addresses from './Components/Profile/Addresses/Addresses';
+import Four0Four from './Components/four_o_four/Four0Four';
 const productContext = createContext();
 const catContext = createContext();
 
@@ -107,9 +108,9 @@ useEffect(() => {
                     </>
 
                     :
-                    ""
+                    ''
                   }
-                    <div style={{display:'flex',justifyContent:'center',alignItems:'center','textTransform':'Capitalize'}}><h1>{changeCategory}</h1></div>
+                    {user.id?<div style={{display:'flex',justifyContent:'center',alignItems:'center','textTransform':'Capitalize'}}><h1>{changeCategory}</h1></div>:""}
                    <ProductCardList products={filteredProducts} userId = {user.id}/>
         </Route>
 
@@ -132,11 +133,12 @@ useEffect(() => {
           </Route>
 
           <Route path='/myaddresses'>
-            <Navigation cartItems={cartItems}/>
-            <Addresses/> 
+            <Navigation cartItems={cartItems} />
+            <Addresses userId={user.id}/> 
           </Route>
 
-         
+          
+
 
 
           
@@ -148,6 +150,10 @@ useEffect(() => {
           :
           <h1 style={{textAlign:'center'}}>Sign In/Register</h1>
           }
+
+          <Route path="*">
+               <Four0Four/>
+          </Route>
 
 
       </Switch>

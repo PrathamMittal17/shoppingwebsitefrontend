@@ -1,83 +1,63 @@
-import React, { useState,useRef, useEffect } from "react";
-import { Card,Button, Form, Container } from "react-bootstrap";
-import "../Profile/Adresses.css"
+import React,{useState,useRef, useContext} from "react";
+import { Form,Container,Button } from "react-bootstrap";
+import { addressContext,addContext } from "./Addresses";
 
-const Addresses = () => {
-    const[address,setAddress] = useState([]);
+const AddressForm = ({userId=0}) => {
+    const[,setAddress] = useContext(addressContext)
     const country = "India";
-    const[add,setAdd] = useState(false);
+    const[,setAdd] = useContext(addContext);
     const[name,setName] = useState('');
     const[mobile,setMobile] = useState('');
     const pincode = useRef('');
     const[houseNo,setHouseNo] = useState('');
     const[area,setArea] = useState('');
-    const[landmark,setLandmark] = useState('');
     const[city,setCity] = useState('');
     const[state,setState] = useState('');
     const[invalidPincode,setInvalidPincode] = useState(false);
     const[invalid,setInvalid] = useState(false);
 
-    useEffect(()=>{
-        return () => {
-            setAddress([])
-            setAdd(false)
-        }
-    },[])
-
     const getFromPincode = (pincode) =>{
-                fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-                .then(data=>data.json())
-                .then(data=>{
-                    if(data[0].PostOffice){
-                        setCity(data[0].PostOffice[0].Block)
-                        setState(data[0].PostOffice[0].State)
-                    }
-                    else{
-                        setInvalidPincode(true)
-                    }
-                })
+        fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+        .then(data=>data.json())
+        .then(data=>{
+            if(data[0].PostOffice){
+                setCity(data[0].PostOffice[0].Block)
+                setState(data[0].PostOffice[0].State)
             }
-    
+            else{
+                setInvalidPincode(true)
+            }
+        })
+    }
+
     const addAddress=()=>{
-        if(name.length>0 && mobile.toString().length>0 && pincode.current.length>0 && houseNo.length>0 && area.length>0 && landmark.length>0 && city.length>0 ) {
+        if(name.length>0 && mobile.toString().length>0 && pincode.current.length>0 && !invalidPincode && houseNo.length>0 && area.length>0  && city.length>0 ) {
             setInvalid(false)
             setAdd(false)
             const address = `${name}\n${houseNo}\n${area}\n${city},${state} ${pincode.current}\n${country}\nPhone Number: ${mobile}`
-            setAddress(current => [...current, address])
+            
 
+            fetch("https://shopping-website-backend.adaptable.app/addAddresses",{
+                method:"post",
+                headers: {'Content-Type': 'application/json'},
+                body:JSON.stringify({
+                    
+                  customerId:userId,
+                  address:address
+                    
+                })
+            })
+            .then(data=>data.json())
+            .then(data=>setAddress(current => [{"address_id":data,"address":address},...current]))
+
+            
         }
         else{
             setInvalid(true)
         }
     }
-    
-    if(!add){
-        return(
-        <>
-        <div style={{display:'flex',justifyContent:'center',margin:'30px 0'}}>
-            <Button onClick={()=>setAdd(true)}>Add Address</Button>
-        </div>
-        <div className="AddressList">
-            {address.length>0 ?
-            address.map((ad,index)=>{
-                const address = ad.split("\n")
-                return(
-                    <Card style={{ width: '30rem',borderRadius:"10px",boxShadow:'1px 2px 0 0 #CBC6C6'}} key={index}>
-                        <Card.Body>
-                            <Card.Subtitle style={{fontWeight:'bold'}}>{address[0]}</Card.Subtitle>
-                            <Card.Text>{address[1]}<br/>{address[2]}<br/>{address[3]}<br/>{address[4]}<br/>{address[5]}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                );
-            }) 
-            
-            :""}
-        </div>
-        </>
-        );
-    }
-    else{
-        return(
+
+    return(
         <Container className="addressForm">
             <div style={{textAlign:'left',margin:"20px 0px 20px 0"}}>
                 <Form.Group className="mb-3">
@@ -98,6 +78,8 @@ const Addresses = () => {
                 <Form.Group className="mb-3">
                     <Form.Label style={{fontWeight:"bold"}}>Pincode</Form.Label>
                     <Form.Control  type="text" onInput={(event)=>{
+                        setCity('')
+                        setState('')
                         pincode.current =  event.target.value
                         if(pincode.current.length===6){
                             getFromPincode(pincode.current)
@@ -116,12 +98,7 @@ const Addresses = () => {
                     <Form.Label style={{fontWeight:"bold"}}>Area, Street, Sector, Village</Form.Label>
                     <Form.Control  type="text" onChange={(event)=>setArea(event.target.value)} autoComplete="none"/>
                 </Form.Group>
-
-                <Form.Group className="mb-3">
-                    <Form.Label style={{fontWeight:"bold"}}>Landmark</Form.Label>
-                    <Form.Control  type="text" onChange={(event)=>setLandmark(event.target.value)}/>
-                </Form.Group>
-
+                
                 <Form.Group className="mb-3">
                     <Form.Label style={{fontWeight:"bold"}}>Town/City</Form.Label>
                     <Form.Control  type="text" value={city} onChange={(event)=>setCity(event.target.value)} autoComplete="none"/>
@@ -172,13 +149,12 @@ const Addresses = () => {
                 </Form.Group>
                 {invalid ? <h6 style={{fontWeight:"bold",textAlign:'center',marginTop:"10px"}}>Fill all the details</h6> : ""}
 
-                <Button onClick={()=>addAddress()}>Add Address</Button>
+                <Button onClick={addAddress}>Add Address</Button>
 
                 
             </div>
         </Container>
         );
-    }
 }
 
-export default Addresses;
+export default AddressForm;

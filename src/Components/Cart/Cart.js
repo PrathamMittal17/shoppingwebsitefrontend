@@ -1,13 +1,14 @@
 import React,{useState,useEffect, createContext} from "react";
 import CartItem from "./CartItem";
-import { loadStripe } from '@stripe/stripe-js';
 import { ListGroup,Button,Spinner,Navbar } from "react-bootstrap";
+import SelectAddress from "./SelectAddress";
 const totalPriceContext = createContext();
 const cartItemsContext = createContext();
 const Cart = ({customerId=0}) =>{
 
     const[cartItemsData,setCartItemsData] = useState(null);
     const[totalPrice,setTotalPrice] = useState(0);
+    const[selectAddress,setSelectAddress] = useState(false);
     useEffect(() => {
         let componentMounted = true;
 
@@ -35,26 +36,17 @@ const Cart = ({customerId=0}) =>{
 
     if(cartItemsData){
             if(cartItemsData.length>0){
+                if(selectAddress){
+                    return(<SelectAddress userId={customerId} totalPrice={totalPrice}/>)
+                }
+                else{
                 return(
                 <div>
                     <Navbar  sticky="top" expand="lg" style={{display:'flex',justifyContent:'center',backgroundColor:"#131921",padding:"10px" }}>
                         
                         <h3 id="totalPrice" style={{color:"white"}}>Total: Rs.{totalPrice}</h3>
                         <Button type="submit" style={{marginLeft:"10px"}} onClick={()=>{
-                            fetch("https://shopping-website-backend.adaptable.app/create-checkout-session",{
-                                method:"post",
-                                headers: {'Content-Type': 'application/json'},
-                                body:JSON.stringify({
-                                    amount:totalPrice*100
-                                })
-                            })
-                            .then(data=>data.json())
-                            .then(async session=>{
-                                const stripe = await loadStripe('pk_test_51JmIXVSBM1qtXmvlx74yuerGEmGuKSxOQ7Ej0XDdZrpZQFasZ4XObY9hCWjeQEXA5GDH1QBgPShHtdlKKJBBYCE400KZp54zhq');
-                                stripe.redirectToCheckout({sessionId:session.id})
-                                
-                            }
-                            )
+                            setSelectAddress(true)
                         }}>Checkout</Button>
                 
                     </Navbar>
@@ -100,11 +92,14 @@ const Cart = ({customerId=0}) =>{
     </div>
     
     );
+                }
 
     }
     else if(cartItemsData.length===0){
         return <h1 style={{textAlign:"center"}}>Cart is empty</h1>;
     }
+
+    
 }
 else{
     return (
