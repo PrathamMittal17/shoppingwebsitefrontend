@@ -148,7 +148,11 @@ useEffect(() => {
             <ProductDetails userId={user.id}/>
           </Route>
           :
-          <h1 style={{textAlign:'center'}}>Sign In/Register</h1>
+          <>
+          <Navigation cartItems={cartItems} />
+          <ProductCardList/>
+          </>
+
           }
 
           <Route path="*">
