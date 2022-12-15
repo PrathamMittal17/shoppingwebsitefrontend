@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const AddressCard = ({index,ad,id=0}) => {
     const addressSplit = ad.split("\n")
     const[address,setAddress] = useContext(addressContext);
+
     const deleteAddress = () => {
         const tempAddress=[...address]
         tempAddress.splice(index,1);
