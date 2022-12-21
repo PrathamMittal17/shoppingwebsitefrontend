@@ -1,8 +1,12 @@
 import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
+import { SetTotal } from '../slices/cartItemsTotalSlice';
+import { useDispatch } from 'react-redux';
 
 
 const OrderDone=({userId=0})=>{
+    const dispatch = useDispatch();
+
     useEffect(() => {
         
         const orderItems = {};
@@ -32,11 +36,30 @@ const OrderDone=({userId=0})=>{
                 })
             
         })
-        .catch(err => console.log('Request Failed'));
-
+        .then(
+            fetch("https://shopping-website-backend.adaptable.app/deleteCart",{
+            method:"delete",
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+                user_id:userId
+            })
+        }))
+        .then(
+            fetch("https://shopping-website-backend.adaptable.app/carttotalitems",{
+            method:"put",
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+                customerId:userId,
+                operation:'E'
+            })
+        })
+        .then(data=>data.json())
+        .then(data=>dispatch(SetTotal(0)))
         
-    
-    }, [userId])
+        )
+        
+        .catch(err => console.log('Request Failed'));
+    }, [userId,dispatch])
     return(
         <>
             <h1 style={{textAlign:"center",padding:'20px'}}>Your Order Is successful</h1>
