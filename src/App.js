@@ -77,7 +77,8 @@ useEffect(() => {
     <HashRouter>
       <Switch>
         <Route exact path={['/category/:category','/']}>
-                  <Navigation cartItems={cartItems}/>
+                  
+                  <Navigation cartItems={cartItems} home={true}/>
                   
                     {user.id ?
                     <>

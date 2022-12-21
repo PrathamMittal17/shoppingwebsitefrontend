@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar,Nav,Container,Dropdown } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import { useSelector ,useDispatch} from 'react-redux';
 import { changeRoute } from '../../slices/routeSlice';
 import { loadUserAccount } from '../../slices/loadUserSlice';
@@ -24,14 +24,21 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     </a>
   ));
 
-const Navigation= ({cartItems}) => {
+const Navigation= ({cartItems,home=false}) => {
     const dispatch = useDispatch();
     const route = useSelector((state)=> state.routeChange.route);
+    const history = useHistory()
+
 
     return(
         <Navbar  style={{backgroundColor:"#131921"}} variant="dark" expand="sm">
         <Container>
-        <Navbar.Brand as={Link} to="/"><span className="brand-name h4">Thrifty<span className="box-text">Box</span></span></Navbar.Brand>
+        <Navbar.Brand as={Link} onClick={()=> {
+            if(home){
+                history.push("/")
+                history.go(0)
+            }
+        }}to="/"><span className="brand-name h4">Thrifty<span className="box-text">Box</span></span></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
             {route==="loggedin"
