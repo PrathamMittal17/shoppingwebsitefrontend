@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  canPay : true,
+  canPay : false,
 }
 
 export const canPaySlice = createSlice({
