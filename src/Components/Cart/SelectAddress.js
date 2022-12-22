@@ -9,13 +9,14 @@ const SelectAddress = ({userId=0,totalPrice=0}) => {
     
     
     const select = useSelector((state)=>state.changeSelect.select)
-
+    const canPay = useSelector((state)=>state.changeCanPay.canPay)
+    
     return(
-        <div >
+        <div>
             <Navbar  sticky="top" expand="lg" style={{display:'flex',justifyContent:'center',backgroundColor:"#131921",padding:"10px",marginBottom:'30px' }}>
                         
                         <h3 id="totalPrice" style={{color:"white"}}>Total: Rs.{totalPrice}</h3>
-                        <Button type="submit" style={{marginLeft:"10px"}} onClick={()=>{
+                        <Button type="submit" disabled={!canPay} style={{marginLeft:"10px"}} onClick={()=>{
                                 fetch("https://shopping-website-backend.adaptable.app/create-checkout-session",{
                                     method:"post",
                                     headers: {'Content-Type': 'application/json'},

@@ -1,5 +1,7 @@
 import React,{useState,useRef, useContext} from "react";
 import { Form,Container,Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { setCanPay } from "../../../slices/canPaySlice";
 import { addressContext,addContext } from "./Addresses";
 
 const AddressForm = ({userId=0}) => {
@@ -15,6 +17,7 @@ const AddressForm = ({userId=0}) => {
     const[state,setState] = useState('');
     const[invalidPincode,setInvalidPincode] = useState(false);
     const[invalid,setInvalid] = useState(false);
+    const dispatch = useDispatch();
 
     const getFromPincode = (pincode) =>{
         fetch(`https://api.postalpincode.in/pincode/${pincode}`)
@@ -49,7 +52,7 @@ const AddressForm = ({userId=0}) => {
             })
             .then(data=>data.json())
             .then(data=>setAddress(current => [{"address_id":data,"address":address},...current]))
-
+            .then(dispatch(setCanPay(true)))
             
         }
         else{

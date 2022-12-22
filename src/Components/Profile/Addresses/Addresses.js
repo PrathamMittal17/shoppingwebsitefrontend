@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext} from "react";
 import { Button,Spinner,Form } from "react-bootstrap";
 import { useDispatch} from "react-redux";
+import { setCanPay } from "../../../slices/canPaySlice";
 import { changeSelect } from "../../../slices/radioSelectSlice";
 import './address.css'
 import AddressCard from "./AddressCard";
@@ -45,11 +46,14 @@ const Addresses = ({userId=0,checkout=false,selectedAddress}) => {
     if(!add){
         if(address){
             if(address.length>0){
+                dispatch(setCanPay(true))
+
                 return(
                 <div>
                     <div style={{display:'flex',justifyContent:'center',margin:'30px 0'}}>
                         <Button onClick={()=>{
                         setAdd(true)
+                        dispatch(setCanPay(false))
                         } }>Add Address</Button>
                     </div>
                     {checkout ? 
@@ -95,6 +99,7 @@ const Addresses = ({userId=0,checkout=false,selectedAddress}) => {
                 );
             }
             else{
+                dispatch(setCanPay(false))
                 return(
                     <>
                     <div style={{display:'flex',justifyContent:'center',margin:'30px 0'}}>
