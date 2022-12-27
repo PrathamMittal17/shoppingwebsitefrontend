@@ -57,7 +57,7 @@ const ProductCardList = ({products,userId=0}) => {
     
     else{
         return(
-            <div style={{textAlign:'center',padding:'100px'}}>
+            <div style={{textAlign:'center',padding:'200px'}}>
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>

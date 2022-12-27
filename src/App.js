@@ -111,7 +111,7 @@ useEffect(() => {
                     :
                     ''
                   }
-                    {user.id?<div style={{display:'flex',justifyContent:'center',alignItems:'center','textTransform':'Capitalize'}}><h1>{changeCategory}</h1></div>:""}
+                    {user.id?<div style={{display:'flex',justifyContent:'center',alignItems:'center','textTransform':'Capitalize'}}><h1>{changeCategory===true ? "" : changeCategory ? changeCategory.toString().replace("-",' ') : ""}</h1></div>:""}
                    <ProductCardList products={filteredProducts} userId = {user.id}/>
         </Route>
 

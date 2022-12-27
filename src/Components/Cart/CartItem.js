@@ -79,7 +79,7 @@ const CartItem = ({index,id,productName,price,img,quantity,custId}) =>{
             </div>
             <div style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
                 <Button size="sm" variant="outline-primary" style={{margin:"20px"}} onClick={()=>{
-                    if(qty<4){
+                    if(qty<10){
                         changeQty(qty+1)
                         setTotalPrice(totalPrice=>totalPrice+Number(price))
 
