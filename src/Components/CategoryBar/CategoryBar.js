@@ -32,7 +32,6 @@ const CategoryBar = () => {
                                 <Popover.Header as="h3">{"All Categories"}</Popover.Header>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("audio-devices")}><h6>Audio Devices</h6></Popover.Body>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("computer-accessories")}><h6>Computer Accessories</h6></Popover.Body>
-                                <Popover.Body className="list-item" onClick={()=>handleOnClick("household-supplies")}><h6>Household Supplies</h6></Popover.Body>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("mobile-phones")}><h6>Mobile Phones</h6></Popover.Body>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("smart-wearables")}><h6>Smart Wearables</h6></Popover.Body>
                             </Popover>
@@ -51,7 +50,6 @@ const CategoryBar = () => {
                                 <Popover.Header as="h3">{"All Categories"}</Popover.Header>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("audio-devices")}><h6>Audio Devices</h6></Popover.Body>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("computer-accessories")}><h6>Computer Accessories</h6></Popover.Body>
-                                <Popover.Body className="list-item" onClick={()=>handleOnClick("household-supplies")}><h6>Household Supplies</h6></Popover.Body>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("mobile-phones")}><h6>Mobile Phones</h6></Popover.Body>
                                 <Popover.Body className="list-item" onClick={()=>handleOnClick("smart-wearables")}><h6>Smart Wearables</h6></Popover.Body>
                             </Popover>
