@@ -35,7 +35,9 @@ const CartItem = ({index,id,productName,price,img,quantity,custId}) =>{
 
    
     const deleteCartItem = () =>{
-
+        const tempCart=[...cartItemsData]
+        tempCart.splice(index,1);
+        setCartItemsData(tempCart);
         cartItemsData.splice(index,1)
         setCartItemsData(cartItemsData)
         setTotalPrice(totalPrice=>totalPrice-(Number(price)*qty))
@@ -79,7 +81,7 @@ const CartItem = ({index,id,productName,price,img,quantity,custId}) =>{
             </div>
             <div style={{display:"flex",justifyContent:"flex-end",alignItems:"center"}}>
                 <Button size="sm" variant="outline-primary" style={{margin:"20px"}} onClick={()=>{
-                    if(qty<10){
+                    if(qty<4){
                         changeQty(qty+1)
                         setTotalPrice(totalPrice=>totalPrice+Number(price))
 
